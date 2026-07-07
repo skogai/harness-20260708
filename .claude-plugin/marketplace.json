@@ -17,7 +17,7 @@
     {
       "name": "harness-creator",
       "source": "./templates/.claude/skills/harness-creator",
-      "description": "creates harnessessesss",
+      "description": "Build, audit, and improve harnesses that make AI coding agents reliable across sessions",
       "category": "harnessing"
     }
   ],

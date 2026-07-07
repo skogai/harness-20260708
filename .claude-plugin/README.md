@@ -4,79 +4,32 @@ This directory contains the plugin marketplace configuration for skogai/harness,
 
 ## For Users: Installation
 
-### Install Everything
 ```bash
 /plugin marketplace add skogai/harness
 ```
 
 ## What's Included
 
-### Skills (40 total across 10 categories)
-- **AI & Claude Code** (7 skills): claude-code, skill-builder, command-builder, hook-builder, settings-expert, mcp-expert
-- **Payments**: Stripe
-- **Backend**: Supabase
-- **Banking**: Plaid (5 skills)
-- **Mobile**: Expo (4 skills), iOS
-- **Blockchain**: Aptos (17 skills including Shelby Protocol)
-- **E-commerce**: Shopify, Whop
-- **Optimization**: TOON Formatter
+`marketplace.json` currently exposes two plugins, sourced from `templates/.claude/skills/`:
 
-### Commands (14 total)
-- 5 TOON format commands
-- 2 marketplace commands
-- 3 meta-commands
-- 4 debugging commands
-
-### Workflows (4 total)
-- production-release
-- ci-pipeline
-- daily-maintenance
-- hotfix
-
-### Systems
-- Orchestration engine
-- Validation system
-- Command registry
+- **toon-formatter** (`optimization`) — TOON format for 30-60% token savings on tabular data
+- **harness-creator** (`harnessing`) — scaffolds new agent harnesses (see `templates/.claude/skills/harness-creator/`)
 
 ## For Developers: Publishing
 
-This plugin marketplace configuration makes skogai/harness discoverable in multiple ways:
+This plugin marketplace configuration makes skogai/harness discoverable via the Claude Code Plugin System (`/plugin marketplace add`).
 
-### 1. Via Claude Code Plugin System
-Users can install with `/plugin marketplace add`
-
-### 2. Via SkillsMP
-- Automatically indexed when GitHub repo has 2+ stars
-- Each skill appears individually in search
-- Users discover via `/discover-skills`
-
-### 3. Via NPX
-```bash
-npx skogharness@latest
-```
+Adding a plugin means adding an entry to `marketplace.json` pointing at a skill directory under `templates/.claude/skills/<name>/`, and keeping the source path in sync with what actually exists there.
 
 ## Structure
 
 ```
 .claude-plugin/
 ├── marketplace.json    # Plugin marketplace configuration
-└── README.md          # This file
+└── README.md           # This file
 ```
-
-## Marketplace Metadata
-
-The `marketplace.json` file defines:
-- 14 installable plugin units
-- Complete metadata (name, description, category)
-- Source paths to skill directories
-- Keywords for discovery
-
-## Updates
-
-When skills are updated in the main repository, the plugin marketplace automatically reflects the changes. No separate publication step needed.
 
 ## Learn More
 
 - [Claude Code Plugin Marketplaces](https://code.claude.com/docs/en/plugin-marketplaces.md)
 - [Agent Skills Specification](https://agentskills.io/)
-- [SkillsMP](https://skillsmp.com/)
