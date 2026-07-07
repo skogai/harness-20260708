@@ -1,4 +1,5 @@
 export const SKILLS = [
+  { id: 'harness-creator', category: 'development', name: 'Harness creator' },
   { id: 'toon-formatter', category: 'utilities', name: 'TOON formatter' },
 ];
 
