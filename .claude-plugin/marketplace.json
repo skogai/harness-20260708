@@ -13,6 +13,12 @@
       "source": "./templates/.claude/skills/toon-formatter",
       "description": "TOON format for 30-60% token savings on tabular data",
       "category": "optimization"
+    },
+    {
+      "name": "harness-creator",
+      "source": "./templates/.claude/skills/harness-creator",
+      "description": "creates harnessessesss",
+      "category": "harnessing"
     }
   ],
   "keywords": ["toon"]
