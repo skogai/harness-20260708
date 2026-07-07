@@ -207,7 +207,7 @@ test('CLI deduplicates repeated explicit skill ids before installing', async (t)
   const dir = await withTempDir(t);
   const cliPath = resolve('bin/cli.js');
 
-  const { stdout, stderr } = await execFileAsync(process.execPath, [
+  await execFileAsync(process.execPath, [
     cliPath,
     'init',
     dir,
@@ -218,6 +218,7 @@ test('CLI deduplicates repeated explicit skill ids before installing', async (t)
     'toon-formatter,toon-formatter',
   ]);
 
-  assert.match(`${stdout}\n${stderr}`, /Installed 1 skills for Codex/);
+  const manifest = JSON.parse(await readFile(join(dir, 'skogai.json'), 'utf8'));
+  assert.deepEqual(manifest.skills, ['toon-formatter']);
   assert.equal(existsSync(join(dir, '.codex', 'skills', 'toon-formatter', 'SKILL.md')), true);
 });

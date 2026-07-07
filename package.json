@@ -16,6 +16,7 @@
     "LICENSE"
   ],
   "scripts": {
+    "install:global": "./scripts/install-global.sh",
     "test": "node --test",
     "test:security": "node --test test/*.test.js",
     "lint": "eslint src/ test/ bin/ templates/.claude/utils/",
