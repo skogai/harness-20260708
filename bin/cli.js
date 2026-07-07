@@ -2,6 +2,7 @@
 
 import { program } from 'commander';
 import { init } from '../src/commands/init.js';
+import { harnessInit } from '../src/commands/harness-init.js';
 import { sync } from '../src/commands/sync.js';
 import { status } from '../src/commands/status.js';
 import { addMcp, addSkill } from '../src/commands/add.js';
@@ -28,6 +29,14 @@ program
   .option('--skills <list>', 'Comma-separated skills to install')
   .option('--no-toon', 'Skip TOON utilities')
   .action(init);
+
+program
+  .command('harness-init [dir]')
+  .description('Scaffold state & lifecycle files: feature_list.json, progress.md, session-handoff.md, init.sh')
+  .option('-f, --force', 'Overwrite existing files')
+  .option('--package-manager <name>', 'Package manager: npm, pnpm, yarn, bun')
+  .option('--commands <list>', 'Comma-separated verification commands (overrides auto-detection)')
+  .action(harnessInit);
 
 program
   .command('sync [dir]')

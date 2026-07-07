@@ -43,6 +43,7 @@ Everything the CLI writes is driven by `skogai.json` at the target directory's r
 ## Development
 
 See [AGENTS.md](./AGENTS.md) for project structure, build/test commands, and coding conventions.
+See [docs/](./docs/) for implementation rationale and maintenance notes.
 
 ## License
 

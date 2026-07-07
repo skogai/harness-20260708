@@ -2,6 +2,7 @@
 // For CLI usage, use bin/cli.js
 
 export { init } from './commands/init.js';
+export { harnessInit } from './commands/harness-init.js';
 export { AGENT_TARGETS, parseAgentTargets } from './agents.js';
 
 export {
