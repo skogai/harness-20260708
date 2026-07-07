@@ -1,14 +1,6 @@
 ---
 name: harness-creator
-description: >-
-  Build, audit, and improve harnesses that make AI coding agents reliable: AGENTS.md/CLAUDE.md
-  instruction files, feature/state tracking, verification gates, scope boundaries, session
-  handoff, memory persistence, context budgets, tool-permission safety, and multi-agent
-  coordination. Use this whenever a coding agent is unreliable across sessions — forgets context,
-  drifts out of scope, claims "done" before tests pass, or starts each session inconsistently —
-  or when creating or assessing AGENTS.md, CLAUDE.md, feature_list.json, init.sh, progress.md, or
-  session-handoff files. Reach for it even if the user never says the word "harness."
-license: MIT
+description: Build, audit, and improve harnesses that make AI coding agents reliable: AGENTS.md/CLAUDE.md instruction files, feature/state tracking, verification gates, scope boundaries, session handoff, memory persistence, context budgets, tool-permission safety, and multi-agent coordination. Use this whenever a coding agent is unreliable across sessions — forgets context, drifts out of scope, claims "done" before tests pass, or starts each session inconsistently — or when creating or assessing AGENTS.md, CLAUDE.md, feature_list.json, init.sh, progress.md, or session-handoff files. Reach for it even if the user never says the word harness.
 ---
 
 # Harness Creator
@@ -21,13 +13,13 @@ Not for model selection, prompt tuning in isolation, chat UI design, or general 
 
 Every useful coding-agent harness has five subsystems:
 
-| Subsystem | Minimal artifact | Purpose |
-|---|---|---|
-| Instructions | `AGENTS.md` or `CLAUDE.md` | Startup path, working rules, definition of done |
-| State | `feature_list.json`, `progress.md` | Current feature, status, evidence, next step |
-| Verification | `init.sh` or documented commands | Tests/checks the agent must run before claiming done |
-| Scope | Feature dependencies and done criteria | Prevents overreach and half-finished work |
-| Lifecycle | `session-handoff.md`, end-of-session routine | Makes the next session restartable |
+| Subsystem    | Minimal artifact                             | Purpose                                              |
+| ------------ | -------------------------------------------- | ---------------------------------------------------- |
+| Instructions | `AGENTS.md` or `CLAUDE.md`                   | Startup path, working rules, definition of done      |
+| State        | `feature_list.json`, `progress.md`           | Current feature, status, evidence, next step         |
+| Verification | `init.sh` or documented commands             | Tests/checks the agent must run before claiming done |
+| Scope        | Feature dependencies and done criteria       | Prevents overreach and half-finished work            |
+| Lifecycle    | `session-handoff.md`, end-of-session routine | Makes the next session restartable                   |
 
 ## First Move
 
