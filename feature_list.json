@@ -1,0 +1,33 @@
+{
+  "features": [
+    {
+      "id": "feat-001",
+      "name": "Starting features documentation",
+      "description": "Document why and how the harness implementation works in a docs/ folder and keep the README focused on usage.",
+      "dependencies": [],
+      "status": "done",
+      "evidence": "docs/README.md and docs/implementation.md added; README links to docs/. git diff --check passed for documentation and harness files."
+    },
+    {
+      "id": "feat-002",
+      "name": "Harness lifecycle files",
+      "description": "Add minimal state, verification, and handoff files so future agent sessions can restart reliably.",
+      "dependencies": [
+        "feat-001"
+      ],
+      "status": "done",
+      "evidence": "feature_list.json, progress.md, init.sh, and session-handoff.md added. harness-creator validation reports 100/100."
+    },
+    {
+      "id": "feat-003",
+      "name": "Final verification",
+      "description": "Run focused validation for the documentation and harness files before marking the branch ready.",
+      "dependencies": [
+        "feat-001",
+        "feat-002"
+      ],
+      "status": "done",
+      "evidence": "Ran node templates/.claude/skills/harness-creator/scripts/validate-harness.mjs --target . and git diff --check -- README.md AGENTS.md docs/README.md docs/implementation.md feature_list.json progress.md init.sh session-handoff.md."
+    }
+  ]
+}
