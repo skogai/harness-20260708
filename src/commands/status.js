@@ -54,7 +54,7 @@ export async function getStatus(dir = '.') {
   const targetDir = resolve(dir);
   const manifest = await loadManifest(targetDir);
   if (!manifest) {
-    throw new Error(`No ${MANIFEST_FILENAME} found in ${targetDir}. Run \`npx create-agent-starter@latest init\` first.`);
+    throw new Error(`No ${MANIFEST_FILENAME} found in ${targetDir}. Run \`npx skogharness@latest init\` first.`);
   }
   const plan = resolveManifest(manifest);
   const report = { plan, targets: {} };
@@ -88,7 +88,7 @@ export async function getStatus(dir = '.') {
 export async function status(dir = '.') {
   try {
     const report = await getStatus(dir);
-    console.log(chalk.bold(`\nagent.json status${report.plan.profile ? ` (profile: ${report.plan.profile})` : ''}\n`));
+    console.log(chalk.bold(`\nskogai.json status${report.plan.profile ? ` (profile: ${report.plan.profile})` : ''}\n`));
 
     for (const [target, targetReport] of Object.entries(report.targets)) {
       const label = AGENT_TARGETS[target].name;
@@ -116,7 +116,7 @@ export async function status(dir = '.') {
     console.log('');
     if (!report.inSync) {
       console.log(chalk.yellow(
-        'Run `npx create-agent-starter@latest sync` to reconcile, or `agent-starter sync` with the global CLI.\n',
+        'Run `npx skogharness@latest sync` to reconcile, or `harness sync` with the global CLI.\n',
       ));
       process.exitCode = 1;
     }

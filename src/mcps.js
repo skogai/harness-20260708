@@ -2,9 +2,9 @@ const MCP_NAME_PATTERN = /^[a-z0-9][a-z0-9_-]{0,63}$/;
 const ENV_REFERENCE_PATTERN = /\$\{([A-Z][A-Z0-9_]*)\}/g;
 
 /**
- * Known MCP servers installable by name with `agent-starter add mcp <name>`.
+ * Known MCP servers installable by name with `harness add mcp <name>`.
  * Package coordinates are defaults; anything here can be overridden per
- * project by editing the entry in agent.json.
+ * project by editing the entry in skogai.json.
  */
 export const MCP_CATALOG = {
   github: {

@@ -4,7 +4,7 @@ This file provides guidance to Codex when working with this repository.
 
 ## What This Repository Is
 
-**agent-starter** is a multi-agent skill starter. It generates project-local guidance for Claude Code, Codex, and Cursor from one shared skill source.
+**skogai/harness** is a multi-agent skill starter (npm: `skogharness`, bin: `harness`), forked from `agent-starter` to fit the skogai workflow. It generates project-local guidance for Claude Code, Codex, and Cursor from one shared skill source.
 
 This is not an application framework. Keep changes focused on installable configuration, skill content, CLI behavior, docs, tests, and the marketing site.
 

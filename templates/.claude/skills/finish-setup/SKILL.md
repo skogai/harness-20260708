@@ -1,6 +1,6 @@
 ---
 name: finish-setup
-description: "Finish provisioning a freshly scaffolded SaaS project using the MCP servers wired by agent.json (Neon, Stripe, Resend, PostHog, GitHub). Verifies env vars, creates Stripe products matching the billing plans, checks database migrations, walks email-domain DNS, and confirms analytics. Use when the user says \"finish setup\", \"provision the project\", \"set up stripe/the database\", or after scaffolding a new project."
+description: "Finish provisioning a freshly scaffolded SaaS project using the MCP servers wired by skogai.json (Neon, Stripe, Resend, PostHog, GitHub). Verifies env vars, creates Stripe products matching the billing plans, checks database migrations, walks email-domain DNS, and confirms analytics. Use when the user says \"finish setup\", \"provision the project\", \"set up stripe/the database\", or after scaffolding a new project."
 argument-hint: "[service (optional: stripe, database, email, analytics, github)]"
 user-invocable: true
 ---

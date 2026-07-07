@@ -1,12 +1,12 @@
 {
-  "name": "claude-starter-complete",
-  "version": "2.0.0",
-  "description": "Complete collection of 40+ production-ready skills including Stripe, Supabase, Expo, Plaid, Aptos, and more. Plus meta-commands, orchestration, and workflows.",
+  "name": "skogai-harness",
+  "version": "4.0.0",
+  "description": "skogai/harness: depth-focused agent skill pack for Claude Code, Codex, and Cursor (HCI, Apple HIG, cleanup, copywriting, TOON).",
   "owner": {
-    "name": "Raintree Technology",
-    "url": "https://github.com/raintree-technology"
+    "name": "skogai",
+    "url": "https://github.com/skogai"
   },
-  "repository": "https://github.com/raintree-technology/claude-starter",
+  "repository": "https://github.com/skogai/harness",
   "plugins": [
     {
       "name": "ai-skills",

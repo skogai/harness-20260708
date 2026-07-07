@@ -126,7 +126,7 @@ export async function init(dir = '.', options = {}) {
   const targetDir = resolve(dir);
   const agentTargets = parseAgentTargets(options.agent || 'claude');
 
-  console.log(chalk.bold('\nAgent Starter\n'));
+  console.log(chalk.bold('\nHarness\n'));
 
   const existingTargets = await findExistingAgentTargets(targetDir, agentTargets);
   if (existingTargets.length > 0) {
@@ -186,7 +186,7 @@ export async function init(dir = '.', options = {}) {
     }
   }
 
-  const spinner = ora('Installing agent-starter...').start();
+  const spinner = ora('Installing harness...').start();
 
   try {
     const installPlan = {
@@ -243,7 +243,7 @@ export async function init(dir = '.', options = {}) {
     const manifestPath = await writeManifest(targetDir, agentTargets, options);
     const { unsetVars } = await runSync(targetDir, { ...options, force: true });
 
-    console.log('\n' + chalk.green('Agent starter installed successfully.') + '\n');
+    console.log('\n' + chalk.green('Harness installed successfully.') + '\n');
     console.log(chalk.dim('  Project manifest (check into git):'));
     console.log(`     ${chalk.cyan(manifestPath)}`);
     if (unsetVars.length > 0) {
@@ -258,11 +258,11 @@ export async function init(dir = '.', options = {}) {
       console.log(chalk.dim('  Cursor project rules:'));
       console.log(`     ${chalk.cyan(join(targetDir, '.cursor/rules'))}`);
     }
-    console.log(chalk.dim('  Re-sync from agent.json:'));
-    console.log(`     ${chalk.cyan('npx create-agent-starter@latest sync')}`);
+    console.log(chalk.dim('  Re-sync from skogai.json:'));
+    console.log(`     ${chalk.cyan('npx skogharness@latest sync')}`);
     console.log(chalk.dim('  Optional global CLI for repeated sync/status/add:'));
-    console.log(`     ${chalk.cyan('npm i -g create-agent-starter')}`);
-    console.log(`     ${chalk.cyan('agent-starter sync')}`);
+    console.log(`     ${chalk.cyan('npm i -g skogharness')}`);
+    console.log(`     ${chalk.cyan('harness sync')}`);
     console.log('');
   } catch (error) {
     spinner.fail('Installation failed');

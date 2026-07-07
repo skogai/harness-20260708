@@ -5,7 +5,7 @@ import { getProfile, profiles, SKILLS } from './profiles.js';
 import { parseAgentTargets } from './agents.js';
 import { validateMcpEntry } from './mcps.js';
 
-export const MANIFEST_FILENAME = 'agent.json';
+export const MANIFEST_FILENAME = 'skogai.json';
 export const MANIFEST_VERSION = 1;
 
 export function getManifestPath(targetDir) {
@@ -14,42 +14,42 @@ export function getManifestPath(targetDir) {
 
 export function validateManifest(manifest) {
   if (!manifest || typeof manifest !== 'object' || Array.isArray(manifest)) {
-    throw new Error('agent.json must be a JSON object');
+    throw new Error('skogai.json must be a JSON object');
   }
   if (manifest.version !== MANIFEST_VERSION) {
-    throw new Error(`Unsupported agent.json version: ${manifest.version} (expected ${MANIFEST_VERSION})`);
+    throw new Error(`Unsupported skogai.json version: ${manifest.version} (expected ${MANIFEST_VERSION})`);
   }
   if (manifest.profile !== undefined && !getProfile(manifest.profile)) {
-    throw new Error(`Unknown profile in agent.json: ${manifest.profile}. Available: ${Object.keys(profiles).join(', ')}`);
+    throw new Error(`Unknown profile in skogai.json: ${manifest.profile}. Available: ${Object.keys(profiles).join(', ')}`);
   }
   if (manifest.targets !== undefined) {
     parseAgentTargets(Array.isArray(manifest.targets) ? manifest.targets.join(',') : manifest.targets);
   }
   if (manifest.skills !== undefined) {
     if (!Array.isArray(manifest.skills) || manifest.skills.some((skill) => typeof skill !== 'string')) {
-      throw new Error('agent.json: skills must be an array of skill ids');
+      throw new Error('skogai.json: skills must be an array of skill ids');
     }
     const knownSkillIds = new Set(SKILLS.map((skill) => skill.id));
     const unknown = manifest.skills.filter((skill) => !knownSkillIds.has(skill));
     if (unknown.length > 0) {
-      throw new Error(`agent.json: unknown skill(s): ${unknown.join(', ')}`);
+      throw new Error(`skogai.json: unknown skill(s): ${unknown.join(', ')}`);
     }
   }
   if (manifest.mcps !== undefined) {
     if (!Array.isArray(manifest.mcps)) {
-      throw new Error('agent.json: mcps must be an array');
+      throw new Error('skogai.json: mcps must be an array');
     }
     manifest.mcps.forEach(validateMcpEntry);
     const names = manifest.mcps.map((entry) => entry.name);
     const duplicates = names.filter((name, index) => names.indexOf(name) !== index);
     if (duplicates.length > 0) {
-      throw new Error(`agent.json: duplicate MCP name(s): ${[...new Set(duplicates)].join(', ')}`);
+      throw new Error(`skogai.json: duplicate MCP name(s): ${[...new Set(duplicates)].join(', ')}`);
     }
   }
   if (manifest.model !== undefined) {
     if (typeof manifest.model !== 'object' || manifest.model === null || Array.isArray(manifest.model)
       || Object.values(manifest.model).some((value) => typeof value !== 'string')) {
-      throw new Error('agent.json: model must be an object mapping agent target to model id');
+      throw new Error('skogai.json: model must be an object mapping agent target to model id');
     }
   }
   return manifest;

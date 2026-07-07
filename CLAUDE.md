@@ -4,13 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What This Repository Is
 
-**agent-starter** (npm: `create-agent-starter`) is a small, depth-focused multi-agent skill pack and project-level agent config manager. It ships one shared set of hand-written skills and generates native project files for three agent targets:
+**skogai/harness** (npm: `skogharness`, bin: `harness`/`skogharness`) is a small, depth-focused multi-agent skill pack and project-level agent config manager — a hard fork of `agent-starter` adapted to fit the skogai workflow. It ships one shared set of hand-written skills and generates native project files for three agent targets:
 
 - Claude Code: `.claude/` (skills, settings, TOON slash commands, optional hooks)
 - Codex: root `AGENTS.md` plus `.codex/skills/<skill-id>/SKILL.md`
 - Cursor: `.cursor/rules/*.mdc`
 
-Users run `npx create-agent-starter@latest` and choose targets with `--agent claude|codex|cursor|all`.
+Users run `npx skogharness@latest` and choose targets with `--agent claude|codex|cursor|all`.
 
 This is configuration, not an app framework. Avoid adding runtime orchestration, semantic matching engines, YAML workflow DSLs, or placeholder command frameworks. See SPEC.md for the full v4 manifest design.
 
@@ -44,16 +44,16 @@ node bin/cli.js status /tmp/demo        # exits 1 on drift
 
 ## Architecture
 
-**CLI entry**: `bin/cli.js` (commander) dispatches to `src/commands/{init,sync,status,add}.js`; `init` is the default command. `src/index.js` re-exports the programmatic API. Keep the `claude-starter` and `create-claude-starter` bin aliases unless there is a migration plan.
+**CLI entry**: `bin/cli.js` (commander) dispatches to `src/commands/{init,sync,status,add}.js`; `init` is the default command. `src/index.js` re-exports the programmatic API. Bin names are `harness` and `skogharness`; no legacy `agent-starter`/`claude-starter` aliases are carried over from upstream.
 
 **One skill source, generated targets**: The canonical skill source is `templates/.claude/skills/<skill>/skill.md` (or `SKILL.md`). `src/utils/copy.js` is the adapter layer that generates the other targets at install time: it parses frontmatter, normalizes descriptions ("Claude needs" → "the agent needs"), writes Codex `SKILL.md` files plus a generated root `AGENTS.md` skill index, and flattens skill paths into Cursor rule names (`/` → `--`) while rewriting `references/` links. Never hand-maintain per-agent copies of a skill.
 
-**Manifest flow (v4)**: An `agent.json` manifest at a project root declares `version`, `profile`, `targets`, `skills`, and `mcps`. `src/manifest.js` loads/validates it and resolves it against:
+**Manifest flow (v4)**: A `skogai.json` manifest at a project root declares `version`, `profile`, `targets`, `skills`, and `mcps`. `src/manifest.js` loads/validates it and resolves it against:
 
 - `src/profiles.js` — the skill registry (`SKILLS`) and profiles, including stack profiles (`next-saas`, `next`, `node`, `base`) auto-detected from the project's package.json dependencies.
 - `src/mcps.js` — the MCP catalog (github, neon, stripe, resend) and per-target config rendering: `.mcp.json` (Claude), `.codex/config.toml`, `.cursor/mcp.json`. Secrets stay as `${VAR}` references, never resolved into generated files.
 
-`sync` writes each target's native config idempotently: generated sections in CLAUDE.md/AGENTS.md go through `src/utils/managed-block.js` fenced markers (edits outside the markers survive), and `mcpServers` JSON is merged by key so entries agent-starter didn't write are never touched. `status` diffs agent.json against native configs.
+`sync` writes each target's native config idempotently: generated sections in CLAUDE.md/AGENTS.md go through `src/utils/managed-block.js` fenced `<harness:generated>` tags (edits outside them survive), and `mcpServers` JSON is merged by key so entries harness didn't write are never touched. `status` diffs skogai.json against native configs.
 
 **Security invariants**: `src/utils/security.js` and `copy.js` enforce path-traversal-safe skill/command paths, symlink rejection on every template copy, and staged-then-swap replacement of `.claude/` with backup/rollback. `test/security-hardening.test.js` covers these guarantees — preserve them when touching install/copy code.
 

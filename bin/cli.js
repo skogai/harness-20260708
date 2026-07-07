@@ -14,13 +14,13 @@ const __dirname = dirname(__filename);
 const pkg = JSON.parse(readFileSync(join(__dirname, '../package.json'), 'utf-8'));
 
 program
-  .name('agent-starter')
+  .name('harness')
   .version(pkg.version)
-  .description('Agent starter kit: 28 depth-focused skills for Claude Code, Codex, and Cursor');
+  .description('skogai/harness: 28 depth-focused skills for Claude Code, Codex, and Cursor');
 
 program
   .command('init [dir]', { isDefault: true })
-  .description('Initialize agent-starter in directory')
+  .description('Initialize harness in directory')
   .option('-y, --yes', 'Skip confirmation prompts')
   .option('-f, --force', 'Overwrite existing files')
   .option('--agent <list>', 'Agent target(s): claude, codex, cursor, or all', 'claude')
@@ -31,17 +31,17 @@ program
 
 program
   .command('sync [dir]')
-  .description('Write native agent config (skills, MCP servers) for every target declared in agent.json')
+  .description('Write native agent config (skills, MCP servers) for every target declared in skogai.json')
   .action(sync);
 
 program
   .command('status [dir]')
-  .description('Diff agent.json against the native config of each target; exits 1 on drift')
+  .description('Diff skogai.json against the native config of each target; exits 1 on drift')
   .action(status);
 
 const add = program
   .command('add')
-  .description('Add an entry to agent.json and re-sync');
+  .description('Add an entry to skogai.json and re-sync');
 
 add
   .command('mcp <name>')
@@ -56,7 +56,7 @@ add
 
 add
   .command('skill <name>')
-  .description('Add a skill from the agent-starter skill set')
+  .description('Add a skill from the harness skill set')
   .option('--dir <dir>', 'Project directory', '.')
   .action(addSkill);
 

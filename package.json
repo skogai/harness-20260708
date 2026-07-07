@@ -1,14 +1,12 @@
 {
-  "name": "create-agent-starter",
+  "name": "skogharness",
   "version": "4.0.0",
-  "description": "Declarative agent config for Claude Code, Codex, and Cursor: an agent.json manifest for skills, MCP servers, and stack profiles, synced to each agent's native config, plus 29 hand-maintained skills.",
+  "description": "Declarative agent config for Claude Code, Codex, and Cursor: a skogai.json manifest for skills, MCP servers, and stack profiles, synced to each agent's native config, plus 29 hand-maintained skills.",
   "type": "module",
   "main": "src/index.js",
   "bin": {
-    "agent-starter": "bin/cli.js",
-    "create-agent-starter": "bin/cli.js",
-    "claude-starter": "bin/cli.js",
-    "create-claude-starter": "bin/cli.js"
+    "skogharness": "bin/cli.js",
+    "harness": "bin/cli.js"
   },
   "files": [
     "bin/",
@@ -45,16 +43,16 @@
     "token-efficiency",
     "starter"
   ],
-  "author": "Raintree",
+  "author": "skogai",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/raintree-technology/agent-starter.git"
+    "url": "git+https://github.com/skogai/harness.git"
   },
   "bugs": {
-    "url": "https://github.com/raintree-technology/agent-starter/issues"
+    "url": "https://github.com/skogai/harness/issues"
   },
-  "homepage": "https://claude.raintree.technology",
+  "homepage": "https://github.com/skogai/harness",
   "engines": {
     "node": ">=18.0.0"
   },

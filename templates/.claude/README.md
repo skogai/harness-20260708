@@ -1,6 +1,6 @@
 # Claude Code configuration
 
-This directory is dropped into your project by `npx create-agent-starter --agent claude` or `--agent all`. It gives Claude Code domain, agent-tooling, cleanup, and TOON (Token-Oriented Object Notation) skills plus a thin TOON command layer.
+This directory is dropped into your project by `npx skogharness --agent claude` or `--agent all`. It gives Claude Code domain, agent-tooling, cleanup, and TOON (Token-Oriented Object Notation) skills plus a thin TOON command layer.
 
 ## What's here
 

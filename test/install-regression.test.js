@@ -26,7 +26,7 @@ import { parseAgentTargets } from '../src/agents.js';
 const execFileAsync = promisify(execFile);
 
 async function withTempDir(t) {
-  const dir = await mkdtemp(join(tmpdir(), 'claude-starter-test-'));
+  const dir = await mkdtemp(join(tmpdir(), 'harness-test-'));
   t.after(async () => {
     await rm(dir, { recursive: true, force: true });
   });
@@ -82,7 +82,7 @@ test('cursor target installs project rules and skill references', async (t) => {
   await copyAgentSkills(dir, 'cursor', ['copywriting-frameworks']);
   await writeCursorProjectRule(dir, ['copywriting-frameworks']);
 
-  assert.equal(existsSync(join(dir, '.cursor', 'rules', 'agent-starter.mdc')), true);
+  assert.equal(existsSync(join(dir, '.cursor', 'rules', 'harness.mdc')), true);
   assert.equal(existsSync(join(dir, '.cursor', 'rules', 'copywriting-frameworks.mdc')), true);
   assert.equal(
     existsSync(join(

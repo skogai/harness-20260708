@@ -1,21 +1,21 @@
-# agent-starter
+# skogai/harness
 
 An opinionated multi-agent skill pack for Claude Code, Codex, and Cursor. Deep, handwritten skills for HCI usability modeling, Apple HIG Doctor guidance, copywriting, code cleanup, and TOON token savings.
 
 No orchestration framework. No aspirational YAML. Just agent-native project files generated from one shared skill source.
 
-[![npm version](https://img.shields.io/npm/v/create-agent-starter.svg)](https://www.npmjs.com/package/create-agent-starter)
-[![npm downloads](https://img.shields.io/npm/dt/create-agent-starter.svg)](https://www.npmjs.com/package/create-agent-starter)
-[![GitHub stars](https://img.shields.io/github/stars/raintree-technology/agent-starter?style=social)](https://github.com/raintree-technology/agent-starter/stargazers)
+[![npm version](https://img.shields.io/npm/v/skogharness.svg)](https://www.npmjs.com/package/skogharness)
+[![npm downloads](https://img.shields.io/npm/dt/skogharness.svg)](https://www.npmjs.com/package/skogharness)
+[![GitHub stars](https://img.shields.io/github/stars/skogai/harness?style=social)](https://github.com/skogai/harness/stargazers)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Star History
 
-<a href="https://star-history.com/#raintree-technology/agent-starter&Date">
+<a href="https://star-history.com/#skogai/harness&Date">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=raintree-technology/agent-starter&type=Date&theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=raintree-technology/agent-starter&type=Date" />
-    <img alt="Star history chart for raintree-technology/agent-starter" src="https://api.star-history.com/svg?repos=raintree-technology/agent-starter&type=Date" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=skogai/harness&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=skogai/harness&type=Date" />
+    <img alt="Star history chart for skogai/harness" src="https://api.star-history.com/svg?repos=skogai/harness&type=Date" />
   </picture>
 </a>
 
@@ -71,33 +71,30 @@ First run / project setup:
 
 ```bash
 # Claude Code only (default)
-npx create-agent-starter@latest
+npx skogharness@latest
 
 # Codex only
-npx create-agent-starter@latest --agent codex
+npx skogharness@latest --agent codex
 
 # Cursor only
-npx create-agent-starter@latest --agent cursor
+npx skogharness@latest --agent cursor
 
 # Claude Code + Codex + Cursor
-npx create-agent-starter@latest --agent all
-
-# Backwards-compatible aliases still work
-npx create-claude-starter@3.0.1 --agent all
+npx skogharness@latest --agent all
 ```
 
 Optional global CLI for repeated `sync`, `status`, and `add` commands:
 
 ```bash
-npm i -g create-agent-starter
+npm i -g skogharness
 
-agent-starter sync
-agent-starter status
-agent-starter add mcp neon
-agent-starter add skill cleanup-types
+harness sync
+harness status
+harness add mcp neon
+harness add skill cleanup-types
 ```
 
-For team setup, prefer the `npx create-agent-starter@latest ...` commands above so contributors do not need a preinstalled global binary.
+For team setup, prefer the `npx skogharness@latest ...` commands above so contributors do not need a preinstalled global binary.
 
 For Claude TOON commands, add the runtime deps to your project:
 
@@ -108,31 +105,31 @@ npm i @toon-format/toon gpt-tokenizer
 ## Profiles
 
 ```bash
-npx create-agent-starter@latest --profile all --agent all
-npx create-agent-starter@latest --profile apple-hig --agent codex,cursor
-npx create-agent-starter@latest --profile design-hci --agent codex
-npx create-agent-starter@latest --skills copywriting-frameworks,cleanup-unused --agent cursor
+npx skogharness@latest --profile all --agent all
+npx skogharness@latest --profile apple-hig --agent codex,cursor
+npx skogharness@latest --profile design-hci --agent codex
+npx skogharness@latest --skills copywriting-frameworks,cleanup-unused --agent cursor
 ```
 
 Profiles select a skill set. Agent targets decide where that skill set is installed.
 
 Stack profiles (`next-saas`, `next`, `node`, `base`) additionally bundle MCP servers for the stack. `init` auto-detects the right one from `package.json`.
 
-## agent.json
+## skogai.json
 
-`init` writes an `agent.json` manifest at the project root — the single declaration of the project's agent environment (profile, targets, skills, MCP servers). Check it into git; every contributor then runs:
+`init` writes a `skogai.json` manifest at the project root — the single declaration of the project's agent environment (profile, targets, skills, MCP servers). Check it into git; every contributor then runs:
 
 ```bash
-npx create-agent-starter@latest sync
+npx skogharness@latest sync
 ```
 
-or `agent-starter sync` after installing the global CLI, and gets identical native config for whichever agent they use: skills plus `.mcp.json` (Claude Code), `.codex/config.toml` + `AGENTS.md` (Codex), and `.cursor/mcp.json` + rules (Cursor). Sync is idempotent — generated sections are fenced with markers, manual edits outside them survive, and MCP entries agent-starter didn't write are never touched.
+or `harness sync` after installing the global CLI, and gets identical native config for whichever agent they use: skills plus `.mcp.json` (Claude Code), `.codex/config.toml` + `AGENTS.md` (Codex), and `.cursor/mcp.json` + rules (Cursor). Sync is idempotent — generated sections are fenced with `<harness:generated>` tags, manual edits outside them survive, and MCP entries harness didn't write are never touched.
 
 ```bash
-npx create-agent-starter@latest status            # diff agent.json vs native configs; exits 1 on drift
-npx create-agent-starter@latest add mcp neon      # catalog: github, neon, stripe, resend
-npx create-agent-starter@latest add mcp internal --command ./bin/mcp --env API_KEY='${API_KEY}'
-npx create-agent-starter@latest add skill cleanup-types
+npx skogharness@latest status            # diff skogai.json vs native configs; exits 1 on drift
+npx skogharness@latest add mcp neon      # catalog: github, neon, stripe, resend
+npx skogharness@latest add mcp internal --command ./bin/mcp --env API_KEY='${API_KEY}'
+npx skogharness@latest add skill cleanup-types
 ```
 
 Secrets are referenced as `${VAR}` and resolved by each agent at runtime — never written to the generated files. Sync appends missing vars to `.env.example` and warns when they're unset.
@@ -152,7 +149,7 @@ The `next-saas` profile is the flagship: cleanup + copywriting skills, the `fini
 AGENTS.md
 
 .cursor/
-  rules/agent-starter.mdc
+  rules/harness.mdc
   rules/<skill>.mdc
   rules/<skill>/references/
 ```

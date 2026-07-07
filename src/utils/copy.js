@@ -507,7 +507,7 @@ export async function writeCodexAgentsFile(targetDir, skillPaths, options = {}) 
   const content = [
     "# AGENTS.md",
     "",
-    "This project includes Agent Starter guidance for Codex.",
+    "This project includes Harness guidance for Codex.",
     "",
     "When a user request matches one of the skills below, read the matching local skill file before answering, planning, or editing. Keep the selected skill active only for the current task unless the user asks to continue that workflow.",
     "",
@@ -528,7 +528,7 @@ export async function writeCodexAgentsFile(targetDir, skillPaths, options = {}) 
 export async function writeCursorProjectRule(targetDir, skillPaths, options = {}) {
   const summaries = await getSkillSummaries(skillPaths);
   const rulesRoot = resolve(targetDir, ".cursor", "rules");
-  const destPath = resolve(rulesRoot, "agent-starter.mdc");
+  const destPath = resolve(rulesRoot, "harness.mdc");
 
   const skillList = summaries.map((skill) => (
     `- \`${skill.id}\`: ${skill.description}`
@@ -536,12 +536,12 @@ export async function writeCursorProjectRule(targetDir, skillPaths, options = {}
 
   const content = [
     "---",
-    'description: "Agent Starter skill-selection guidance for Cursor"',
+    'description: "Harness skill-selection guidance for Cursor"',
     "globs:",
     "alwaysApply: true",
     "---",
     "",
-    "# Agent Starter",
+    "# Harness",
     "",
     "Use the project rules in this directory when a request matches their descriptions. Each skill rule is Agent Requested by default so Cursor can select it when the task context calls for it.",
     "",

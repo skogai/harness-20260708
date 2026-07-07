@@ -1,4 +1,4 @@
-# agent-starter: Revised Spec
+# skogai/harness: Revised Spec
 
 **Status:** Draft  
 **Date:** 2026-06-11
@@ -17,13 +17,13 @@ The rules-sync space is already crowded (ruler, rulesync, agent_sync). The MCP-i
 
 ## Core Concept
 
-`agent.json` is to agent environments what `package.json` is to Node projects.
+`skogai.json` is to agent environments what `package.json` is to Node projects.
 
-Check it into git. Every contributor runs `npx create-agent-starter@latest sync` and their agent — whichever one they use — is fully configured. No README setup steps, no config drift between teammates. Contributors who run the CLI often can optionally install it globally with `npm i -g create-agent-starter` and use `agent-starter sync`.
+Check it into git. Every contributor runs `npx skogharness@latest sync` and their agent — whichever one they use — is fully configured. No README setup steps, no config drift between teammates. Contributors who run the CLI often can optionally install it globally with `npm i -g skogharness` and use `harness sync`.
 
 ---
 
-## `agent.json` Schema
+## `skogai.json` Schema
 
 ```json
 {
@@ -67,7 +67,7 @@ Check it into git. Every contributor runs `npx create-agent-starter@latest sync`
 }
 ```
 
-All fields except `version` are optional. Env var interpolation (`${VAR}`) resolves at sync time from the shell — never stored as literals in generated files. If a var is missing at sync time, agent-starter logs a warning and documents it in `.env.example`.
+All fields except `version` are optional. Env var interpolation (`${VAR}`) resolves at sync time from the shell — never stored as literals in generated files. If a var is missing at sync time, harness logs a warning and documents it in `.env.example`.
 
 ---
 
@@ -95,15 +95,15 @@ Profiles are the main differentiator. A profile is an opinionated, stack-aware b
 - Skills: `cleanup-unused`
 - MCPs: none
 
-Profiles are a starting point, not a lock-in. Anything in `agent.json` overrides or extends the profile defaults.
+Profiles are a starting point, not a lock-in. Anything in `skogai.json` overrides or extends the profile defaults.
 
 ### Profile detection
 
-`npx create-agent-starter@latest init` reads `package.json`, `starter.config.ts`, and `.env.example` to infer the best profile. It shows what it found and confirms before writing `agent.json`.
+`npx skogharness@latest init` reads `package.json`, `starter.config.ts`, and `.env.example` to infer the best profile. It shows what it found and confirms before writing `skogai.json`.
 
 ---
 
-## Two-Package Architecture: `create-next-saas-starter` + `create-agent-starter`
+## Two-Package Architecture: `create-next-saas-starter` + `skogharness`
 
 next-starter graduates from "repo you clone" to a published scaffolder, and the two packages form a tandem with a thin, versioned contract between them.
 
@@ -119,20 +119,20 @@ Owns the **application**. Scaffolds a SaaS app from the next-starter template:
 
 Publish as `create-next-saas-starter` so `npm create next-saas-starter@latest my-app` works.
 
-### Package 2: `create-agent-starter` (this repo)
+### Package 2: `skogharness` (this repo)
 
-Owns the **agent environment**. `agent.json`, profiles, sync, skills — everything in this spec. Knows nothing about Next.js internals; it just maintains the `next-saas` profile.
+Owns the **agent environment**. `skogai.json`, profiles, sync, skills — everything in this spec. Knows nothing about Next.js internals; it just maintains the `next-saas` profile.
 
 ### The handshake
 
-The scaffolder's last step writes `agent.json` with `"profile": "next-saas"` and runs `npx create-agent-starter@latest sync`. That's the entire coupling — a profile name and a schema version. Both packages release independently; the contract is the profile.
+The scaffolder's last step writes `skogai.json` with `"profile": "next-saas"` and runs `npx skogharness@latest sync`. That's the entire coupling — a profile name and a schema version. Both packages release independently; the contract is the profile.
 
 ```
 npm create next-saas-starter my-app
   → prompts (tenancy, integrations, agent targets)
   → scaffold app + starter.config.ts
-  → write agent.json (profile: next-saas)
-  → npx create-agent-starter@latest sync        ← .claude/ + AGENTS.md + .cursor/ all configured
+  → write skogai.json (profile: next-saas)
+  → npx skogharness@latest sync        ← .claude/ + AGENTS.md + .cursor/ all configured
   → vercel link (optional)
 ```
 
@@ -157,43 +157,43 @@ No other starter does this. Everyone else stops at "here's your `.env.example`, 
 
 ## CLI
 
-### `npx create-agent-starter@latest sync`
+### `npx skogharness@latest sync`
 
-Reads `agent.json` and writes native config for all listed targets. Safe to re-run — generated sections are fenced with markers so manual edits outside the markers survive.
+Reads `skogai.json` and writes native config for all listed targets. Safe to re-run — generated sections are fenced with `<harness:generated>` tags so manual edits outside them survive.
 
 **Claude Code** → `.claude/settings.json` (mcpServers, model, hooks) + `.claude/skills/`  
 **Codex** → `.codex/config.toml` (mcp, model) + `AGENTS.md` skill instructions  
 **Cursor** → `.cursor/mcp.json` + `.cursor/rules/*.mdc`
 
-For rules/skills sync, agent-starter writes directly. It does not delegate to ruler or rulesync — adding a dependency for something this simple would be worse than owning the small set of target formats.
+For rules/skills sync, harness writes directly. It does not delegate to ruler or rulesync — adding a dependency for something this simple would be worse than owning the small set of target formats.
 
-### `npx create-agent-starter@latest init`
+### `npx skogharness@latest init`
 
-Interactive setup. Detects stack → proposes profile → confirms → writes `agent.json` → runs sync. Generates `.env.example` entries for any MCP env vars not already present.
+Interactive setup. Detects stack → proposes profile → confirms → writes `skogai.json` → runs sync. Generates `.env.example` entries for any MCP env vars not already present.
 
-### `npx create-agent-starter@latest add mcp <name-or-package>`
+### `npx skogharness@latest add mcp <name-or-package>`
 
-Adds an MCP entry to `agent.json`, prompts for required env vars, appends to `.env.example`, re-syncs.
+Adds an MCP entry to `skogai.json`, prompts for required env vars, appends to `.env.example`, re-syncs.
 
-### `npx create-agent-starter@latest add skill <name>`
+### `npx skogharness@latest add skill <name>`
 
-Resolves skill from skills.sh or local templates, adds to `agent.json`, installs skill files, re-syncs.
+Resolves skill from skills.sh or local templates, adds to `skogai.json`, installs skill files, re-syncs.
 
-### `npx create-agent-starter@latest status`
+### `npx skogharness@latest status`
 
-Diffs `agent.json` against what's currently in each target's native config. Shows what's in sync and what's drifted.
+Diffs `skogai.json` against what's currently in each target's native config. Shows what's in sync and what's drifted.
 
-### `npx create-agent-starter@latest` (unchanged alias)
+### `npx skogharness@latest` (default alias)
 
-Runs `init`. Existing CLI aliases (`claude-starter`, `create-claude-starter`) preserved.
+Runs `init`. This is a hard fork of `agent-starter`; no legacy `claude-starter`/`create-claude-starter` aliases are carried over.
 
-Optional global CLI for repeated use: `npm i -g create-agent-starter`, then `agent-starter sync`, `agent-starter status`, and `agent-starter add ...`.
+Optional global CLI for repeated use: `npm i -g skogharness`, then `harness sync`, `harness status`, and `harness add ...`.
 
 ---
 
 ## MCP Config Translation
 
-Same entry in `agent.json`, three output formats:
+Same entry in `skogai.json`, three output formats:
 
 **Claude Code** (`.claude/settings.json`):
 ```json
@@ -234,14 +234,14 @@ NEON_API_KEY = "${NEON_API_KEY}"
 
 ---
 
-## What agent-starter Does Not Do
+## What harness Does Not Do
 
 - **Runtime orchestration.** Config management only.
 - **Secrets management.** Env vars interpolated at sync time; never stored.
 - **Agent version pinning.** Out of scope.
-- **Cloud/remote config sync.** `agent.json` lives in the repo; no server component.
-- **Compete with add-mcp on per-server onboarding.** `add-mcp` is good at "add this one MCP to your machine." agent-starter is good at "this project needs these MCPs for everyone."
-- **Compete with skills.sh on discovery.** skills.sh is the registry; agent-starter is the project-level installer.
+- **Cloud/remote config sync.** `skogai.json` lives in the repo; no server component.
+- **Compete with add-mcp on per-server onboarding.** `add-mcp` is good at "add this one MCP to your machine." harness is good at "this project needs these MCPs for everyone."
+- **Compete with skills.sh on discovery.** skills.sh is the registry; harness is the project-level installer.
 
 ---
 
@@ -249,10 +249,10 @@ NEON_API_KEY = "${NEON_API_KEY}"
 
 1. **How deep does `finish-setup` provision?** Creating Stripe products and checking Neon migrations is clearly in scope. Creating the Neon database itself, or the Vercel project, starts overlapping with `vercel` CLI and marketplace integrations — draw the line at "configure what exists, link what doesn't."
 
-2. **Codex MCP scoping.** Codex defaults to user-level (`~/.codex/config.toml`). Agent-starter should write project-level (`.codex/config.toml`) for project MCPs, and document that users may need to add it to trusted projects. Needs verification against Codex docs.
+2. **Codex MCP scoping.** Codex defaults to user-level (`~/.codex/config.toml`). Harness should write project-level (`.codex/config.toml`) for project MCPs, and document that users may need to add it to trusted projects. Needs verification against Codex docs.
 
-3. **Conflict resolution on sync.** Fenced markers handle most cases. But if someone has manually added MCPs to `.claude/settings.json` that aren't in `agent.json`, does sync clobber them or merge? Proposal: merge by key, warn on conflicts, never delete keys agent-starter didn't write.
+3. **Conflict resolution on sync.** Fenced tags handle most cases. But if someone has manually added MCPs to `.claude/settings.json` that aren't in `skogai.json`, does sync clobber them or merge? Proposal: merge by key, warn on conflicts, never delete keys harness didn't write.
 
 4. **Profile versioning.** If the `next-saas` profile changes (new MCP added), existing projects on that profile should be notified on `status` but not auto-updated on sync. Profiles should be pinned at init time and updated explicitly.
 
-5. **Name.** "agent-starter" reads as scaffolding. This is closer to a config manager. Potential rename candidates: `agentenv`, `agent-config`, `agentfile`. Not urgent — defer until after v4 ships.
+5. **Name.** Resolved — this is a hard fork of `agent-starter`, renamed to `skogharness`/`harness` under the `skogai/harness` repo to fit the skogai workflow.

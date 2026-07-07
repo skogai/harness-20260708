@@ -4,12 +4,12 @@ import { dirname } from 'path';
 
 const MARKER_STYLES = {
   markdown: {
-    begin: '<!-- agent-starter:begin (generated; edits inside this block are overwritten by `agent-starter sync`) -->',
-    end: '<!-- agent-starter:end -->',
+    begin: '<harness:generated note="edits inside this block are overwritten by `harness sync`">',
+    end: '</harness:generated>',
   },
   hash: {
-    begin: '# >>> agent-starter:begin (generated; edits inside this block are overwritten by `agent-starter sync`)',
-    end: '# <<< agent-starter:end',
+    begin: '# <harness:generated note="edits inside this block are overwritten by `harness sync`">',
+    end: '# </harness:generated>',
   },
 };
 
@@ -22,7 +22,7 @@ export function getMarkers(style) {
 }
 
 /**
- * Insert or replace the agent-starter managed block in a file, preserving
+ * Insert or replace the harness managed block in a file, preserving
  * all content outside the markers. Creates the file if it does not exist.
  */
 export async function upsertManagedBlock(filePath, blockContent, style) {
@@ -46,7 +46,7 @@ export async function upsertManagedBlock(filePath, blockContent, style) {
     const separator = existing.endsWith('\n') ? '\n' : '\n\n';
     next = `${existing}${separator}${block}\n`;
   } else {
-    throw new Error(`Corrupted agent-starter markers in ${filePath}. Remove the stray marker and re-run sync.`);
+    throw new Error(`Corrupted harness markers in ${filePath}. Remove the stray marker and re-run sync.`);
   }
 
   await writeFile(filePath, next, 'utf-8');

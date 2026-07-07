@@ -1,28 +1,12 @@
-# Claude Starter Plugin Marketplace
+# skogai/harness Plugin Marketplace
 
-This directory contains the plugin marketplace configuration for claude-starter, making it easy for users to install the entire collection of 40+ skills, commands, and workflows with a single command.
+This directory contains the plugin marketplace configuration for skogai/harness, making it easy for users to install the skill pack with a single command.
 
 ## For Users: Installation
 
 ### Install Everything
 ```bash
-/plugin marketplace add raintree-technology/claude-starter
-```
-
-### Install Specific Categories
-```bash
-# Just payment skills
-/plugin marketplace add raintree-technology/claude-starter/stripe-payments
-
-# Just mobile development
-/plugin marketplace add raintree-technology/claude-starter/expo-mobile
-
-# Just blockchain/Aptos
-/plugin marketplace add raintree-technology/claude-starter/aptos-blockchain
-
-# Just automation tools
-/plugin marketplace add raintree-technology/claude-starter/meta-commands
-/plugin marketplace add raintree-technology/claude-starter/workflows
+/plugin marketplace add skogai/harness
 ```
 
 ## What's Included
@@ -56,7 +40,7 @@ This directory contains the plugin marketplace configuration for claude-starter,
 
 ## For Developers: Publishing
 
-This plugin marketplace configuration makes claude-starter discoverable in multiple ways:
+This plugin marketplace configuration makes skogai/harness discoverable in multiple ways:
 
 ### 1. Via Claude Code Plugin System
 Users can install with `/plugin marketplace add`
@@ -68,7 +52,7 @@ Users can install with `/plugin marketplace add`
 
 ### 3. Via NPX
 ```bash
-npx create-claude-starter@3.0.0
+npx skogharness@latest
 ```
 
 ## Structure

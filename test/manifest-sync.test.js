@@ -13,7 +13,7 @@ import { getStatus } from '../src/commands/status.js';
 import { detectStackProfile, getProfile } from '../src/profiles.js';
 
 async function withTempDir(t) {
-  const dir = await mkdtemp(join(tmpdir(), 'agent-manifest-test-'));
+  const dir = await mkdtemp(join(tmpdir(), 'harness-manifest-test-'));
   t.after(async () => {
     await rm(dir, { recursive: true, force: true });
   });
@@ -23,7 +23,7 @@ async function withTempDir(t) {
 const GITHUB_MCP = getCatalogMcp('github');
 
 test('manifest validation rejects bad shapes', () => {
-  assert.throws(() => validateManifest({ version: 2 }), /Unsupported agent.json version/);
+  assert.throws(() => validateManifest({ version: 2 }), /Unsupported skogai.json version/);
   assert.throws(() => validateManifest({ version: 1, profile: 'nope' }), /Unknown profile/);
   assert.throws(() => validateManifest({ version: 1, skills: ['not-a-skill'] }), /unknown skill/);
   assert.throws(() => validateManifest({ version: 1, targets: ['windsurf'] }), /Unknown agent target/);
@@ -166,7 +166,7 @@ test('sync preserves foreign MCP keys and content outside managed markers', asyn
 
   const agentsMd = await readFile(join(dir, 'AGENTS.md'), 'utf-8');
   assert.match(agentsMd, /# Existing guidance/);
-  assert.match(agentsMd, /agent-starter:begin/);
+  assert.match(agentsMd, /harness:generated/);
 });
 
 test('status reports drift and unmanaged entries', async (t) => {
@@ -203,7 +203,7 @@ test('status reports drift and unmanaged entries', async (t) => {
   assert.equal(reconciled.mcpServers.extra.command, 'user-owned', 'reconcile keeps foreign keys');
 });
 
-test('loadManifest returns null without agent.json and round-trips with save', async (t) => {
+test('loadManifest returns null without skogai.json and round-trips with save', async (t) => {
   const dir = await withTempDir(t);
   assert.equal(await loadManifest(dir), null);
   await saveManifest(dir, { version: 1, profile: 'next-saas', targets: ['claude'] });

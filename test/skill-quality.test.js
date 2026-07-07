@@ -71,7 +71,7 @@ function splitFrontmatter(markdown) {
 }
 
 async function withTempDir(t) {
-  const dir = await mkdtemp(join(tmpdir(), 'agent-starter-skill-quality-'));
+  const dir = await mkdtemp(join(tmpdir(), 'harness-skill-quality-'));
   t.after(async () => {
     await rm(dir, { recursive: true, force: true });
   });
@@ -206,7 +206,7 @@ test('generated Codex and Cursor targets keep valid target-specific skill output
   }
 
   const codexAgents = await readFile(join(dir, 'AGENTS.md'), 'utf8');
-  const cursorProjectRule = await readFile(join(dir, '.cursor/rules/agent-starter.mdc'), 'utf8');
+  const cursorProjectRule = await readFile(join(dir, '.cursor/rules/harness.mdc'), 'utf8');
   assert.doesNotMatch(codexAgents, /\\"/);
   assert.doesNotMatch(cursorProjectRule, /\\"/);
 

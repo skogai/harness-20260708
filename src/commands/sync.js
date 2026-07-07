@@ -29,8 +29,8 @@ async function readJsonIfExists(filePath) {
 
 /**
  * Merge managed MCP entries into an existing mcpServers JSON file by key.
- * Keys agent-starter did not write are preserved untouched; managed keys
- * are overwritten to match agent.json.
+ * Keys harness did not write are preserved untouched; managed keys
+ * are overwritten to match skogai.json.
  */
 async function writeMcpServersJson(filePath, mcps) {
   if (mcps.length === 0) {
@@ -45,9 +45,9 @@ async function writeMcpServersJson(filePath, mcps) {
 async function buildClaudeSkillsBlock(skills) {
   const summaries = await getSkillSummaries(skills);
   return [
-    '## Agent Starter skills',
+    '## Harness skills',
     '',
-    'Managed by `agent.json` — run `npx create-agent-starter@latest sync` after editing it, or `agent-starter sync` with the global CLI.',
+    'Managed by `skogai.json` — run `npx skogharness@latest sync` after editing it, or `harness sync` with the global CLI.',
     '',
     ...summaries.map((skill) => `- \`${skill.id}\`: ${skill.description}`),
   ].join('\n');
@@ -59,7 +59,7 @@ async function buildCodexBlock(skills) {
     `- \`${skill.id}\`: ${skill.description}\n  Read \`.codex/skills/${skill.id}/SKILL.md\` before using this skill.`
   )).join('\n');
   return [
-    '## Agent Starter skills',
+    '## Harness skills',
     '',
     'When a user request matches one of the skills below, read the matching local skill file before answering, planning, or editing.',
     '',
@@ -112,7 +112,7 @@ async function syncCursor(targetDir, plan, options) {
   await copyAgentEssentials(targetDir, 'cursor', { ...options, force: true });
   await copyAgentSkills(targetDir, 'cursor', plan.skills, { ...options, force: true });
 
-  // agent-starter.mdc is wholly generated, and .mdc frontmatter must start
+  // harness.mdc is wholly generated, and .mdc frontmatter must start
   // at byte 0, so it is overwritten rather than marker-managed.
   await writeCursorProjectRule(targetDir, plan.skills, { ...options, force: true });
   return writeMcpServersJson(join(targetDir, '.cursor', 'mcp.json'), plan.mcps);
@@ -138,7 +138,7 @@ async function updateEnvExample(targetDir, envVars) {
   }
   const block = [
     '',
-    '# MCP servers (agent.json — used by agent-starter sync targets)',
+    '# MCP servers (skogai.json — used by harness sync targets)',
     ...missing.map((name) => `${name}=`),
     '',
   ].join('\n');
@@ -150,7 +150,7 @@ export async function runSync(dir = '.', options = {}) {
   const targetDir = resolve(dir);
   const manifest = await loadManifest(targetDir);
   if (!manifest) {
-    throw new Error(`No ${MANIFEST_FILENAME} found in ${targetDir}. Run \`npx create-agent-starter@latest init\` first.`);
+    throw new Error(`No ${MANIFEST_FILENAME} found in ${targetDir}. Run \`npx skogharness@latest init\` first.`);
   }
   const plan = resolveManifest(manifest);
 
