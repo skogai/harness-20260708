@@ -6,14 +6,6 @@ This directory is dropped into your project by `npx skogharness --agent claude` 
 
 | Path | Purpose |
 |---|---|
-| `skills/stripe/` | Stripe integration entrypoint plus reference guide: Checkout, Payment Intents, subscriptions, Connect, webhooks. |
-| `skills/supabase/` | Postgres + RLS, Auth, Realtime, Storage, Edge Functions, pgvector. |
-| `skills/plaid/` | Link flow + Auth + Transactions + Identity + Accounts (single consolidated skill). |
-| `skills/expo/` | Core Expo + EAS Build + EAS Update + Expo Router (single consolidated skill). |
-| `skills/copywriting-frameworks/` | Direct-response copywriting for headlines, ads, landing pages, emails, CTAs, and critiques. |
-| `skills/anthropic/` | Anthropic API expert + 6 Claude Code meta-tooling sub-skills (skill/command/hook/MCP/settings builders). |
-| `skills/cleanup-*` | Focused cleanup workflows for unused code, cycles, dedupe, types, defensive code, legacy paths, and comments. |
-| `skills/toon-formatter/` | When to reach for TOON; how to invoke the commands. |
 | `commands/convert-to-toon.md` etc. | 5 TOON slash commands. |
 | `utils/toon/cli.mjs` | 90-line wrapper around `@toon-format/toon` and `gpt-tokenizer`. |
 | `hooks/` | Optional post-tool automation. Disabled by default in `settings.json`. |
