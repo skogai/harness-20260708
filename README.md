@@ -25,35 +25,7 @@ No orchestration framework. No aspirational YAML. Just agent-native project file
 
 | Skill | Covers |
 |---|---|
-| **human-processor-model** | Estimates task time, cognitive load, memory burden, and perceptual/motor bottlenecks in product flows. |
-| **goms-klm-analysis** | Decomposes workflows into GOMS/KLM goals, operators, methods, selection rules, waits, and interaction-cost comparisons. |
-| **hig-doctor-audit** | Runs the HIG Doctor verification loop with `npx hig-doctor`, severity gates, exported reports, and category-to-skill routing. |
-| **hig-project-context** | Creates shared Apple design context so HIG skills tailor guidance without repetitive questions. |
-| **hig-foundations** | Apple HIG foundations: color, typography, SF Symbols, dark mode, accessibility, layout, materials, motion, privacy, writing. |
-| **hig-platforms** | Platform-specific HIG guidance for iOS, iPadOS, macOS, tvOS, visionOS, watchOS, and games. |
-| **hig-patterns** | Apple UX patterns for onboarding, launch, loading, permissions, feedback, undo, settings, sharing, and collaboration. |
-| **hig-inputs** | Apple input guidance for gestures, keyboards, pointers, Apple Pencil, Digital Crown, focus, remotes, and spatial input. |
-| **hig-technologies** | Apple technology guidance for Siri, Apple Pay, HealthKit, ARKit, iCloud, Sign in with Apple, SharePlay, Wallet, and more. |
-| **hig-components-content** | HIG content display components: charts, collections, image views, web views, color wells, lockups, share sheets. |
-| **hig-components-layout** | HIG layout and organization: sidebars, split views, tab bars, scroll views, windows, panels, lists, and tables. |
-| **hig-components-menus** | HIG menus and actions: buttons, context menus, toolbars, menu bar, pop-up buttons, and disclosure controls. |
-| **hig-components-search** | HIG search and navigation components: search fields, page controls, and path controls. |
-| **hig-components-dialogs** | HIG dialogs and overlays: alerts, action sheets, popovers, sheets, and digit entry views. |
-| **hig-components-controls** | HIG controls: pickers, toggles, sliders, steppers, segmented controls, text fields, labels, and validation. |
-| **hig-components-status** | HIG status and progress UI: progress indicators, status bars, loading states, and activity rings. |
-| **hig-components-system** | HIG system experiences: widgets, Live Activities, notifications, complications, App Clips, shortcuts, and watch faces. |
-| **copywriting-frameworks** | Headlines, landing pages, ads, emails, CTAs, AIDA, objections, proof placeholders, critiques. |
-| **finish-setup** | Provisions a freshly scaffolded SaaS project through the wired MCPs: Stripe products, database migrations, email DNS, analytics, GitHub. |
 | **toon-formatter** | When TOON helps, when it does not, and how to invoke the TOON commands. |
-| **cleanup-all** | Orchestrates the full cleanup pipeline. |
-| **cleanup-unused** | Detects and removes high-confidence dead code, exports, files, and dependencies. |
-| **cleanup-cycles** | Detects and untangles circular dependencies. |
-| **cleanup-dedupe** | Extracts high-confidence duplicate code into shared utilities. |
-| **cleanup-types** | Consolidates duplicated or fragmented type definitions. |
-| **cleanup-weak-types** | Replaces weak types with stronger inferred or validated types. |
-| **cleanup-defensive** | Removes pointless try/catch blocks and guards that hide errors. |
-| **cleanup-legacy** | Removes zero-caller deprecated, legacy, and fallback paths. |
-| **cleanup-slop** | Removes unhelpful narration comments while preserving useful WHY comments. |
 
 ## Agent Targets
 
