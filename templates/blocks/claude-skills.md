@@ -1,5 +1,5 @@
 ## Harness skills
 
-Managed by `skogai.json` — run `npx skogharness@latest sync` after editing it, or `harness sync` with the global CLI.
+Managed by `skogai.json` — run `skogharness sync` after editing it.
 
 {{SKILLS}}

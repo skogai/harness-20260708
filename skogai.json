@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "targets": [
+    "claude",
+    "codex"
+  ],
+  "profile": "all"
+}
