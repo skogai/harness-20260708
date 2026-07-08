@@ -94,3 +94,4 @@ backup-*/
 templates/.claude/.claude/data/sessions/019f3d3d-fd7b-7561-a2c0-05dc019e34c4.json
 /.claude/worktrees
 /.claude/worktrees/keen-fox-5ys4
+/.claude/data/sessions
