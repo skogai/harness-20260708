@@ -1,6 +1,0 @@
-{
-  "$schema": "https://code.claude.com/schemas/settings.schema.json",
-  "version": "1.0.0",
-  "description": "Shared Claude Code defaults for harness. Keep the projects executable hooks, elevated permissions, and other machine-specific trust settings in .claude/settings.local.json.",
-  "model": "claude-sonnet-5"
-}
