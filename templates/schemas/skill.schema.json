@@ -1,0 +1,23 @@
+{
+  "$id": "https://skogai.se/schemas/skill.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Skill document",
+  "description": "A SKILL.md file: packaged expertise installable per agent. Practice example of a document type built on document.schema.json, same pattern as router.schema.json. NOTE: \"skill\" is not yet in defs.schema.json's `type` enum -- needs to be added there before any real document validates as type: skill.",
+  "allOf": [
+    { "$ref": "document.schema.json" },
+    {
+      "required": ["type", "frontmatter"],
+      "properties": {
+        "type": { "const": "skill" },
+        "frontmatter": {
+          "type": "object",
+          "required": ["name", "description"],
+          "properties": {
+            "name": { "$ref": "defs.schema.json#/$defs/slug" },
+            "description": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    }
+  ]
+}

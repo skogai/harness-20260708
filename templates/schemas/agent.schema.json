@@ -1,0 +1,27 @@
+{
+  "$id": "https://skogai.se/schemas/agent.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "agent",
+  "description": "A native coding-agent target the harness can sync into (claude, codex, ...). Mirrors AGENT_TARGETS in src/agents.js.",
+  "type": "object",
+  "required": ["id", "name", "dotFolder", "agentFilename"],
+  "properties": {
+    "id": { "$ref": "defs.schema.json#/$defs/slug" },
+    "name": { "type": "string" },
+    "dotFolder": {
+      "type": "string",
+      "pattern": "^\\.[a-z0-9-]+$",
+      "description": "Directory this agent's native config is synced into, e.g. \".claude\""
+    },
+    "agentFilename": {
+      "type": "string",
+      "description": "Entrypoint instruction file written at the project root for this agent, e.g. \"CLAUDE.md\" or \"AGENTS.md\""
+    },
+    "skillsSubpath": {
+      "type": "string",
+      "default": "skills",
+      "description": "Path segment under dotFolder where skills live"
+    }
+  },
+  "additionalProperties": false
+}

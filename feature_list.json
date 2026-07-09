@@ -170,6 +170,15 @@
       ],
       "status": "pending",
       "evidence": null
+    },
+    {
+      "id": "feat-018",
+      "name": "templates/schemas/ domain schema family (agent, skill, manifest) + validator fixes",
+      "description": "Intent: draft the concrete JSON Schema objects the .skogai/ engine will operate on, ahead of feat-013's formal manifest-schema work, and fix the pre-existing schema validator so it actually runs end to end. Needed input: existing .skogai/schemas/{document,defs,router}.schema.json (used as the house style/pattern to follow), src/agents.js (AGENT_TARGETS), src/profiles.js (SKILLS/profiles), src/mcps.js (MCP_CATALOG). Expected output: templates/schemas/agent.schema.json (plain domain object mirroring AGENT_TARGETS), templates/schemas/skill.schema.json (a document type built on document.schema.json, same allOf pattern as router.schema.json -- practice example, not yet wired to real SKILL.md frontmatter), templates/schemas/manifest.schema.json (the skogai.json contract: version/targets/profile/skills/mcps/model -- distinct from and narrower than feat-013's planned manifest schema, which still needs to add state/templates fields). Also fixed scripts/_validate_file.py (added PEP 723 inline deps so `uv run` provisions jsonschema/pyyaml without system pip; added missing \"skill\" -> skill.schema.json entry in TYPE_TO_SCHEMA; caught yaml.YAMLError in parse_frontmatter instead of an unhandled traceback) and scripts/validate-schema.sh (unguarded `result=$(...)` under `set -e` meant the first FAIL silently aborted the whole script before the summary printed -- added `|| true`).",
+      "dependencies": [],
+      "status": "done",
+      "evidence": "./scripts/validate-schema.sh ./templates run to completion (previously aborted silently before any summary printed): 11 checked, 0 passed, 2 failed, 8 warned -- failures/warnings are pre-existing content issues in templates/.claude/skills/*/SKILL.md (unquoted colons in descriptions; no `type:` field since skill.schema.json is a practice example not yet wired to real files), not regressions from this work. bun test: 47/47 pass. All templates/schemas/*.json confirmed valid JSON via `node -e \"JSON.parse(...)\"`.",
+      "discovered_via": "feat-013"
     }
   ]
 }

@@ -1,0 +1,8 @@
+{
+  "$id": "https://skogai.se/schemas/frontmatter.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Document frontmatter",
+  "description": "Parsed YAML frontmatter for normalized Skogai documents. Specific document schemas narrow this shape where needed.",
+  "type": "object",
+  "additionalProperties": true
+}

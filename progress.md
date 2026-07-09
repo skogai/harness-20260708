@@ -2,8 +2,8 @@
 
 ## Current State
 
-**Last Updated:** 2026-07-09 11:29 CEST
-**Active Feature:** feat-013 pending - .skogai/ manifest schema (next up)
+**Last Updated:** 2026-07-09 (evening) CEST
+**Active Feature:** feat-018 done - schema family draft; feat-013 (.skogai/ manifest schema) still pending, next up
 
 ## Status
 
@@ -37,6 +37,13 @@
 - [x] Wrote `docs/dot-skogai-templates.md` as the index doc for that architecture.
 - [x] Added `feat-013`..`feat-017` to `feature_list.json` (status `pending`), each cast as intent / needed input / expected output: manifest schema, functional contract, template engine, `templates/` mirror + `.skogai/` content + wiring (retiring `harness-init`), status drift detection + docs/test close-out.
 - [x] Ran `./init.sh`: install clean, lint clean, 47/47 tests pass, harness validation 80/100 (pre-existing instruction-wording gaps, unrelated to this session's changes — see Blockers).
+- [x] Drafted `templates/schemas/agent.schema.json` (plain domain object mirroring `AGENT_TARGETS` in `src/agents.js`).
+- [x] Drafted `templates/schemas/skill.schema.json` as a document type (practice example of the `allOf` + `document.schema.json` pattern `router.schema.json` uses).
+- [x] Drafted `templates/schemas/manifest.schema.json` as the skogai.json contract (version/targets/profile/skills/mcps/model) — narrower than feat-013's planned schema, which still needs `state`/`templates` fields added.
+- [x] Moved `document.schema.json`/`defs.schema.json`/`router.schema.json` from `.skogai/schemas/` (a symlink into the separate `dot-skogai` repo, used only as a style reference) into `templates/schemas/` — `templates/` is this repo's authored source; `.skogai/` is a future deploy target, not touched further.
+- [x] Fixed `scripts/_validate_file.py`: added PEP 723 inline deps (`jsonschema`, `pyyaml`) so `uv run` provisions them without a system-wide `pip install`; added the missing `"skill"` entry to `TYPE_TO_SCHEMA`; caught `yaml.YAMLError` in `parse_frontmatter` instead of letting it crash with a raw traceback.
+- [x] Fixed `scripts/validate-schema.sh`: an unguarded `result=$(...)` under `set -e` meant the first `FAIL` silently aborted the whole script before the summary ever printed — added `|| true`.
+- [x] Recorded `feat-018` as done in `feature_list.json` with verification evidence.
 
 ### What's In Progress
 
