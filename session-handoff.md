@@ -2,9 +2,9 @@
 
 ## Current Objective
 
-- Goal: Make sync guidance runnable and give this repo a named self-hosting profile.
-- Current status: `harness-meta` was added and selected in `skogai.json`; broken npm-backed npx guidance was replaced with the verified GitHub-backed form; local npx package sync, status, whitespace, and full tests pass.
-- Branch / commit: current branch `codex/superpowers`; latest known merged baseline was `master` at `8a68ae8 feat: add harness startup scaffold`.
+- Goal: Plan the next harness lifecycle features after the self-hosting sync work was merged and pushed.
+- Current status: `feat-010` is planned as the next feature: review documentation and state files, then classify what is current/in-use, proposed/future, or stale/superseded. `feat-011` and `feat-012` are proposed follow-ons for the turn lifecycle contract and validator command surface.
+- Branch / commit: current branch `master`; worktree was clean before this planning update.
 
 ## Completed This Session
 
@@ -35,6 +35,11 @@
 - [x] Added `harness-meta` profile coverage in `test/manifest-sync.test.js`.
 - [x] Regenerated sync outputs for Claude and Codex.
 - [x] Added `feat-009` to `feature_list.json` and updated progress/handoff evidence.
+- [x] Merged and pushed the generated harness sync outputs and `harness-meta` work.
+- [x] Added `feat-010` documentation currency map as the next planned feature.
+- [x] Added `feat-011` turn lifecycle contract as a proposed follow-on.
+- [x] Added `feat-012` template script validator surface as a proposed follow-on.
+- [x] Updated progress/handoff so the next step is to classify docs as current/in-use, proposed/future, or stale/superseded.
 
 ## Verification Evidence
 
@@ -59,6 +64,8 @@
 | Current status | `node bin/cli.js status .` | Pass | Claude Code and Codex in sync for `profile: harness-meta`. |
 | Tests | `npm test` | Pass, 47/47 | Full test suite. |
 | Whitespace | `git diff --check` | Pass | No whitespace errors. |
+| Planning state | `node -e "JSON.parse(require('fs').readFileSync('feature_list.json','utf8'))"` | Pass | Confirms proposed feature additions keep JSON valid. |
+| Whitespace | `git diff --check` | Pass | Focused planning/state update has no whitespace errors. |
 
 ## Files Changed
 
@@ -90,6 +97,9 @@
 - `README.md`
 - `test/manifest-sync.test.js`
 - generated `AGENTS.md`, `CLAUDE.md`, `.claude/`, and `.codex/` outputs from sync
+- `feature_list.json` - added `feat-010`, `feat-011`, and `feat-012`.
+- `progress.md` - updated next-step guidance for the documentation currency pass.
+- `session-handoff.md` - updated startup context for the next session.
 
 ## Decisions Made
 
@@ -101,23 +111,26 @@
 - Keep `SKILLS` ids unique; generated Codex installs write `.codex/skills/<id>/SKILL.md` once per registered id unless explicitly forced.
 - Use `harness-meta` for repos that are self-hosting the SkogAI/harness operating layer; keep `all` as the generic "every shipped skill" preset.
 - Do not advertise `npx skogharness@latest` until the package exists on npm; the currently verified no-install form is `npx --yes github:skogai/harness`.
+- Define a harness "turn" before adding more hook implementations. A turn starts from a user message, hook event, resume, or other initiative source and ends when the agent returns the final response or hook decision.
+- Treat `./init.sh` as one verification command inside the turn lifecycle, not as the complete lifecycle boundary.
+- Do a documentation currency pass before implementing the turn lifecycle, because current docs mix implemented behavior with future hook/turn proposals.
 
 ## Blockers / Risks
 
-- `npx --yes github:skogai/harness sync` cannot sync manifests using `profile: "harness-meta"` until that GitHub package source includes this new profile.
 - `npx skogharness@latest sync` is still not runnable because npm returns 404 for `skogharness`.
-- `.claude/skills/` remains ignored by `.gitignore`, so generated Claude skill outputs need an explicit tracking decision if `skogai.json` stays committed with `claude` target enabled.
+- Documentation surfaces are not yet labeled by maturity. The next pass must identify current/in-use docs, proposed/future docs, and stale/superseded docs before implementation continues.
+- `templates/.claude/scripts/*.py` contains useful validators that are not clearly documented or wired into package scripts.
 
 ## Next Session Startup
 
 1. Read `AGENTS.md`.
 2. Read `feature_list.json` and `progress.md`.
 3. Review this handoff.
-4. Run `./init.sh` for full verification, or run focused checks if the session is docs-only.
-5. Confirm whether `master` needs pushing to `origin` before starting new work.
+4. Run focused checks for docs/state-only work, or `./init.sh` before code changes.
+5. Start `feat-010` unless the user redirects.
 
 ## Recommended Next Step
 
-- Decide whether to commit generated `.codex/` and `.claude/` outputs, and whether to change `.gitignore` for `.claude/skills/`.
-- Merge/publish the profile and guidance changes before relying on GitHub-backed npx for `harness-meta` manifests.
-- Then return to the session hooks plan if that remains the next product feature.
+- Execute `feat-010`: review README, AGENTS.md, CLAUDE.md, docs/, generated `.claude`/`.codex` guidance, and lifecycle state files. Produce a map of current/in-use, proposed/future, and stale/superseded documentation.
+- Include the unadvertised `templates/.claude/scripts/*.py` validators in that pass and decide whether they belong in package scripts, `init.sh`, or separate validation docs.
+- After the docs map is current, write `feat-011` as the turn lifecycle contract and use the existing session hooks spec as supporting input.

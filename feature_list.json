@@ -88,6 +88,36 @@
       ],
       "status": "done",
       "evidence": "Verified npx skogharness@latest sync fails with npm 404; verified npx --yes github:skogai/harness --help works; verified npx --yes --package . harness sync against a temp skogai.json works with profile harness-meta. npm test passed 47/47; git diff --check passed; node bin/cli.js status . reports Claude Code and Codex in sync."
+    },
+    {
+      "id": "feat-010",
+      "name": "Documentation currency map",
+      "description": "Review README, AGENTS/CLAUDE guidance, docs/, generated agent files, and lifecycle state to classify what is current and in use, what is proposed/future, and what is stale or superseded.",
+      "dependencies": [
+        "feat-009"
+      ],
+      "status": "planned",
+      "evidence": "Next planning step requested after generated harness sync outputs were merged and pushed."
+    },
+    {
+      "id": "feat-011",
+      "name": "Turn lifecycle contract",
+      "description": "Define the harness turn model from incoming user message or lifecycle hook through context loading, feature selection, action, verification, evidence recording, and final initiative handoff.",
+      "dependencies": [
+        "feat-010"
+      ],
+      "status": "proposed",
+      "evidence": "Proposed after reframing ./init.sh from a branch/startup verifier into one command inside a per-message turn lifecycle."
+    },
+    {
+      "id": "feat-012",
+      "name": "Template script validator surface",
+      "description": "Document and wire the existing templates/.claude/scripts validators into named project commands so profile consistency, reference neutrality, skill closure, skill language, plugin metadata, and skill quality checks are visible and reusable.",
+      "dependencies": [
+        "feat-010"
+      ],
+      "status": "proposed",
+      "evidence": "templates/.claude/scripts/*.py currently contains validators and tests, but they are not surfaced in README, docs, init.sh, or package scripts."
     }
   ]
 }
