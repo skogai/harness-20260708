@@ -1066,5 +1066,1176 @@
         "code"
       ]
     }
+  },
+  {
+    "name": "skogai_think_sequentialthinking",
+    "description": "A detailed tool for dynamic and reflective problem-solving through thoughts.\nThis tool helps analyze problems through a flexible thinking process that can adapt and evolve.\nEach thought can build on, question, or revise previous insights as understanding deepens.\n\nWhen to use this tool:\n- Breaking down complex problems into steps\n- Planning and design with room for revision\n- Analysis that might need course correction\n- Problems where the full scope might not be clear initially\n- Problems that require a multi-step solution\n- Tasks that need to maintain context over multiple steps\n- Situations where irrelevant information needs to be filtered out\n\nKey features:\n- You can adjust total_thoughts up or down as you progress\n- You can question or revise previous thoughts\n- You can add more thoughts even after reaching what seemed like the end\n- You can express uncertainty and explore alternative approaches\n- Not every thought needs to build linearly - you can branch or backtrack\n- Generates a solution hypothesis\n- Verifies the hypothesis based on the Chain of Thought steps\n- Repeats the process until satisfied\n- Provides a correct answer\n\nParameters explained:\n- thought: Your current thinking step, which can include:\n  * Regular analytical steps\n  * Revisions of previous thoughts\n  * Questions about previous decisions\n  * Realizations about needing more analysis\n  * Changes in approach\n  * Hypothesis generation\n  * Hypothesis verification\n- nextThoughtNeeded: True if you need more thinking, even if at what seemed like the end\n- thoughtNumber: Current number in sequence (can go beyond initial total if needed)\n- totalThoughts: Current estimate of thoughts needed (can be adjusted up/down)\n- isRevision: A boolean indicating if this thought revises previous thinking\n- revisesThought: If is_revision is true, which thought number is being reconsidered\n- branchFromThought: If branching, which thought number is the branching point\n- branchId: Identifier for the current branch (if any)\n- needsMoreThoughts: If reaching end but realizing more thoughts needed\n\nYou should:\n1. Start with an initial estimate of needed thoughts, but be ready to adjust\n2. Feel free to question or revise previous thoughts\n3. Don't hesitate to add more thoughts if needed, even at the \"end\"\n4. Express uncertainty when present\n5. Mark thoughts that revise previous thinking or branch into new paths\n6. Ignore information that is irrelevant to the current step\n7. Generate a solution hypothesis when appropriate\n8. Verify the hypothesis based on the Chain of Thought steps\n9. Repeat the process until satisfied with the solution\n10. Provide a single, ideally correct answer as the final output\n11. Only set nextThoughtNeeded to false when truly done and a satisfactory answer is reached",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "thought": {
+          "type": "string",
+          "description": "Your current thinking step"
+        },
+        "nextThoughtNeeded": {
+          "description": "Whether another thought step is needed",
+          "type": "boolean"
+        },
+        "thoughtNumber": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991,
+          "description": "Current thought number (numeric value, e.g., 1, 2, 3)"
+        },
+        "totalThoughts": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991,
+          "description": "Estimated total thoughts needed (numeric value, e.g., 5, 10)"
+        },
+        "isRevision": {
+          "description": "Whether this revises previous thinking",
+          "type": "boolean"
+        },
+        "revisesThought": {
+          "description": "Which thought is being reconsidered",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "branchFromThought": {
+          "description": "Branching point thought number",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "branchId": {
+          "description": "Branch identifier",
+          "type": "string"
+        },
+        "needsMoreThoughts": {
+          "description": "If more thoughts are needed",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "thought",
+        "thoughtNumber",
+        "totalThoughts"
+      ],
+      "$schema": "http://json-schema.org/draft-07/schema#"
+    },
+    "mcp": "skogai-think"
+  },
+  {
+    "name": "skogai_tools_all",
+    "description": "SkogAI context generation",
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_code_interpreter",
+    "description": "Execute the sql code.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "The code to execute."
+        }
+      },
+      "required": [
+        "code"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_date_utils",
+    "description": "Get formatted date/time in various formats\nProvides date/time utilities including current time, unix timestamp, and custom formats",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "format": {
+          "type": "string",
+          "description": "The date format to use (now|unix|iso|date|custom)"
+        },
+        "custom_format": {
+          "type": "string",
+          "description": "A custom date format string (e.g., \"+%Y-%m-%d %H:%M:%S\")"
+        },
+        "timezone": {
+          "type": "string",
+          "description": "Timezone to use (local|utc)"
+        }
+      },
+      "required": []
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_demo_sh",
+    "description": "Demonstrate how to create a tool using Bash and how to use comment tags.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "string": {
+          "type": "string",
+          "description": "Define a required string property"
+        },
+        "string_enum": {
+          "type": "string",
+          "description": "Define a required string property with enum",
+          "enum": [
+            "foo",
+            "bar"
+          ]
+        },
+        "string_optional": {
+          "type": "string",
+          "description": "Define a optional string property"
+        },
+        "boolean": {
+          "type": "boolean",
+          "description": "Define a boolean property"
+        },
+        "integer": {
+          "type": "integer",
+          "description": "Define a required integer property"
+        },
+        "number": {
+          "type": "number",
+          "description": "Define a required number property"
+        },
+        "array": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Define a required string array property"
+        },
+        "array_optional": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Define a optional string array property"
+        }
+      },
+      "required": [
+        "string",
+        "string_enum",
+        "integer",
+        "number",
+        "array"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_example_calculator",
+    "description": "Perform basic arithmetic operations",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "a": {
+          "type": "number",
+          "description": "First number"
+        },
+        "b": {
+          "type": "number",
+          "description": "Second number"
+        },
+        "operation": {
+          "type": "string",
+          "description": "The operation to perform",
+          "enum": [
+            "add",
+            "subtract",
+            "multiply",
+            "divide"
+          ]
+        }
+      },
+      "required": [
+        "a",
+        "b",
+        "operation"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_example_file_stats",
+    "description": "Get statistics for one or more files",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "List of files to analyze"
+        },
+        "format": {
+          "type": "string",
+          "description": "Output format",
+          "enum": [
+            "text",
+            "json"
+          ]
+        },
+        "show_hidden": {
+          "type": "boolean",
+          "description": "Include hidden file details"
+        }
+      },
+      "required": [
+        "files"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_example_greeter",
+    "description": "Greet a user with a customizable message",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the person to greet"
+        },
+        "greeting": {
+          "type": "string",
+          "description": "The greeting word to use"
+        },
+        "uppercase": {
+          "type": "boolean",
+          "description": "Convert output to uppercase"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_example",
+    "description": "Generate argc tool skeleton",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Tool filename (e.g., my_tool.sh)"
+        },
+        "desc": {
+          "type": "string",
+          "description": "What the tool does"
+        },
+        "params": {
+          "type": "string",
+          "description": "Params in format: \"name! type[choices] name2*\""
+        },
+        "type": {
+          "type": "string",
+          "description": "Language type",
+          "enum": [
+            "sh",
+            "py",
+            "js"
+          ]
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Has required params"
+        },
+        "multi": {
+          "type": "boolean",
+          "description": "Has multi-value params"
+        },
+        "choices": {
+          "type": "boolean",
+          "description": "Has choice params"
+        }
+      },
+      "required": [
+        "name",
+        "desc"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_execute_command",
+    "description": "Execute the shell command.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "command": {
+          "type": "string",
+          "description": "The command to execute."
+        }
+      },
+      "required": [
+        "command"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_execute_sql_code",
+    "description": "Execute the sql code.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "The code to execute."
+        }
+      },
+      "required": [
+        "code"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_fetch_url_via_curl",
+    "description": "Extract the content from a given URL.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "The URL to scrape."
+        }
+      },
+      "required": [
+        "url"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_fetch_url_via_jina",
+    "description": "Extract the content from a given URL.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "The URL to scrape."
+        }
+      },
+      "required": [
+        "url"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_fizz",
+    "description": "Classic FizzBuzz implementation - prints numbers 1 to max, replacing multiples of 3 with 'Fizz', multiples of 5 with 'Buzz', and multiples of both with 'FizzBuzz'",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "int": {
+          "type": "integer",
+          "description": "The amounts of numbers to print"
+        }
+      },
+      "required": [
+        "int"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_fs_cat",
+    "description": "Read the contents of a file at the specified path.\nUse this when you need to examine the contents of an existing file.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "The path of the file to read"
+        }
+      },
+      "required": [
+        "path"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_fs_ls",
+    "description": "List all files and directories at the specified path.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "The path of the directory to list"
+        }
+      },
+      "required": [
+        "path"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_fs_mkdir",
+    "description": "Create a new directory at the specified path.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "The path of the directory to create"
+        }
+      },
+      "required": [
+        "path"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_fs_patch",
+    "description": "Apply a patch to a file at the specified path.\nThis can be used to edit the file, without having to rewrite the whole file.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "The path of the file to apply to"
+        },
+        "contents": {
+          "type": "string",
+          "description": "The patch to apply to the file\n\nHere is an example of a patch block that can be applied to modify the file to request the user's name:\n--- a/hello.py\n+++ b/hello.py\n@@ ... @@\n def hello():\n-    print(\"Hello World\")\n+    name = input(\"What is your name? \")\n+    print(f\"Hello {name}\")"
+        }
+      },
+      "required": [
+        "path",
+        "contents"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_fs_rm",
+    "description": "Remove the file or directory at the specified path.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "The path of the file or directory to remove"
+        }
+      },
+      "required": [
+        "path"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_fs_write",
+    "description": "Write the full file contents to a file at the specified path.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "The path of the file to write to"
+        },
+        "contents": {
+          "type": "string",
+          "description": "The full contents to write to the file"
+        }
+      },
+      "required": [
+        "path",
+        "contents"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_get_current_time",
+    "description": "Get the current time.",
+    "parameters": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_get_current_weather",
+    "description": "Get the current weather in a given location.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "location": {
+          "type": "string",
+          "description": "The city and optionally the state or country, e.g., \"London\", \"San Francisco, CA\"."
+        }
+      },
+      "required": [
+        "location"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_get_uncertainty",
+    "description": "Get uncertainty items from CLAUDE.md",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "uncertain": {
+          "type": "boolean",
+          "description": "Extract items with '[ ]' status (default)"
+        },
+        "partial": {
+          "type": "boolean",
+          "description": "Extract items with '[/]' status"
+        },
+        "verified": {
+          "type": "boolean",
+          "description": "Extract items with '[x]' status"
+        },
+        "waiting": {
+          "type": "boolean",
+          "description": "Extract items with '[s]' status"
+        },
+        "all": {
+          "type": "boolean",
+          "description": "Extract items with any status"
+        }
+      },
+      "required": []
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_number",
+    "description": "Takes a number between 1 and 100 and echoes it",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_port",
+    "description": "Takes an open/available port between 9900 and 9999",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "port": {
+          "type": "number",
+          "description": "An available port between 9900 and 9999"
+        }
+      },
+      "required": [
+        "port"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_project_tools",
+    "description": "Show available tools based on project files in current directory",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "tool": {
+          "type": "string",
+          "description": "Run a specific detected tool"
+        },
+        "dir": {
+          "type": "string",
+          "description": "Directory to scan for project files"
+        },
+        "list": {
+          "type": "boolean",
+          "description": "Only list available tools without details"
+        }
+      },
+      "required": []
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_search_arxiv",
+    "description": "Search arXiv for a query and return the top papers.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "The query to search for."
+        }
+      },
+      "required": [
+        "query"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_search_wikipedia",
+    "description": "Search Wikipedia for a query.\nUses it to get detailed information about a public figure, interpretation of a complex scientific concept or in-depth connectivity of a significant historical event,.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "The query to search for."
+        }
+      },
+      "required": [
+        "query"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_search_wolframalpha",
+    "description": "Get an answer to a question using Wolfram Alpha. Input should the query in English.\nUse it to answer user questions that require computation, detailed facts, data analysis, or complex queries.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "The query to search for."
+        }
+      },
+      "required": [
+        "query"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_send_mail",
+    "description": "Send a email.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "recipient": {
+          "type": "string",
+          "description": "The recipient of the email."
+        },
+        "subject": {
+          "type": "string",
+          "description": "The subject of the email."
+        },
+        "body": {
+          "type": "string",
+          "description": "The body of the email."
+        }
+      },
+      "required": [
+        "recipient",
+        "subject",
+        "body"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_send_twilio",
+    "description": "Send SMS or Twilio Messaging Channels messages using Twilio API.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "to_number": {
+          "type": "string",
+          "description": "The recipient's phone number. Prefix with 'whatsapp:' for WhatsApp messages, e.g. whatsapp:+1234567890"
+        },
+        "message": {
+          "type": "string",
+          "description": "The content of the message to be sent"
+        }
+      },
+      "required": [
+        "to_number",
+        "message"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_skogai_grep",
+    "description": "SkogAI Grep",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "e": {
+          "type": "string",
+          "description": "--* <string>                        match pattern"
+        },
+        "branch": {
+          "type": "string",
+          "description": "branch name"
+        },
+        "count": {
+          "type": "boolean",
+          "description": "show the number of matches instead of matching lines"
+        },
+        "exclude": {
+          "type": "string",
+          "description": "skip files and directories matching pattern"
+        },
+        "ignore_case": {
+          "type": "boolean",
+          "description": "case insensitive matching"
+        },
+        "include": {
+          "type": "string",
+          "description": "search only files that match pattern (default \"**/*\")"
+        },
+        "line_number": {
+          "type": "boolean",
+          "description": "show line numbers"
+        },
+        "name_only": {
+          "type": "boolean",
+          "description": "show only repository:filenames"
+        },
+        "only_matching": {
+          "type": "boolean",
+          "description": "show only matching parts of a line"
+        },
+        "owner": {
+          "type": "string",
+          "description": "repository owner or org"
+        },
+        "repo": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "repository name"
+        },
+        "repo_only": {
+          "type": "boolean",
+          "description": "show only repositories"
+        },
+        "tag": {
+          "type": "string",
+          "description": "tag name"
+        },
+        "url": {
+          "type": "boolean",
+          "description": "show URL"
+        }
+      },
+      "required": []
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_skogparse",
+    "description": "Parse input text using skogparse and return the output",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "input": {
+          "type": "string",
+          "description": "The text to parse with skogparse"
+        }
+      },
+      "required": [
+        "input"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_test_greeter",
+    "description": "A comprehensive greeting tool demonstrating argc capabilities\n\nThis tool showcases best practices for argc-based bash tools including:\n- Required and optional parameters\n- Default values and enums\n- Multi-value arrays\n- Flags (boolean)\n- Dynamic choice functions\n- Environment variable binding\n- Proper output handling\n- Input validation",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The person's name to greet (required)"
+        },
+        "title": {
+          "type": "string",
+          "description": "Formal title to use (optional)",
+          "enum": [
+            "Mr",
+            "Mrs",
+            "Ms",
+            "Dr",
+            "Prof"
+          ]
+        },
+        "language": {
+          "type": "string",
+          "description": "Language for greeting",
+          "enum": [
+            "en",
+            "es",
+            "fr",
+            "de",
+            "sv"
+          ]
+        },
+        "times": {
+          "type": "integer",
+          "description": "How many times to repeat the greeting"
+        },
+        "style": {
+          "type": "string",
+          "description": "Greeting style",
+          "enum": [
+            "casual",
+            "formal",
+            "friendly"
+          ]
+        },
+        "topics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Topics to mention (optional array)"
+        },
+        "colors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Favorite colors (required array with dynamic choices)"
+        },
+        "mood": {
+          "type": "string",
+          "description": "Current mood (dynamic choices)"
+        },
+        "enthusiastic": {
+          "type": "boolean",
+          "description": "Add extra enthusiasm"
+        },
+        "verbose": {
+          "type": "boolean",
+          "description": "Enable verbose output"
+        },
+        "output_format": {
+          "type": "string",
+          "description": "Output format",
+          "enum": [
+            "text",
+            "json",
+            "yaml"
+          ]
+        },
+        "time_of_day": {
+          "type": "string",
+          "description": "Time-specific greeting",
+          "enum": [
+            "morning",
+            "afternoon",
+            "evening",
+            "night"
+          ]
+        },
+        "signature": {
+          "type": "string",
+          "description": "Add custom signature at the end"
+        },
+        "max_length": {
+          "type": "integer",
+          "description": "Maximum length of greeting message"
+        }
+      },
+      "required": [
+        "name",
+        "colors"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_validate_type",
+    "description": "Validate input against skogparse type system",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The expected type"
+        },
+        "value": {
+          "type": "string",
+          "description": "The value to validate"
+        }
+      },
+      "required": [
+        "type",
+        "value"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_web_search_aichat",
+    "description": "Perform a web search to get up-to-date information or additional context.\nUse this when you need current information or feel a search could provide a better answer.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "The query to search for."
+        }
+      },
+      "required": [
+        "query"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_web_search_perplexity",
+    "description": "Perform a web search using Perplexity API to get up-to-date information or additional context.\nUse this when you need current information or feel a search could provide a better answer.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "The query to search for."
+        }
+      },
+      "required": [
+        "query"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_web_search_tavily",
+    "description": "Perform a web search using Tavily API to get up-to-date information or additional context.\nUse this when you need current information or feel a search could provide a better answer.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "The query to search for."
+        }
+      },
+      "required": [
+        "query"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_code_interpreter",
+    "description": "Execute the javascript code in node.js.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Javascript code to execute, such as `console.log(\"hello world\")`"
+        }
+      },
+      "required": [
+        "code"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_demo_js",
+    "description": "Demonstrate how to create a tool using Javascript and how to use comments.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "string": {
+          "type": "string",
+          "description": "Define a required string property"
+        },
+        "string_enum": {
+          "type": "string",
+          "enum": [
+            "foo",
+            "bar"
+          ],
+          "description": "Define a required string property with enum"
+        },
+        "string_optional": {
+          "type": "string",
+          "description": "Define a optional string property"
+        },
+        "boolean": {
+          "type": "boolean",
+          "description": "Define a required boolean property"
+        },
+        "integer": {
+          "type": "integer",
+          "description": "Define a required integer property"
+        },
+        "number": {
+          "type": "number",
+          "description": "Define a required number property"
+        },
+        "array": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Define a required string array property"
+        },
+        "array_optional": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Define a optional string array property"
+        }
+      },
+      "required": [
+        "string",
+        "string_enum",
+        "boolean",
+        "integer",
+        "number",
+        "array"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_execute_js_code",
+    "description": "Execute the javascript code in node.js.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Javascript code to execute, such as `console.log(\"hello world\")`"
+        }
+      },
+      "required": [
+        "code"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_code_interpreter",
+    "description": "Execute the python code.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Python code to execute, such as `print(\"hello world\")`"
+        }
+      },
+      "required": [
+        "code"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_demo_py",
+    "description": "Demonstrate how to create a tool using Python and how to use comments.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "string": {
+          "type": "string",
+          "description": "Define a required string property"
+        },
+        "string_enum": {
+          "type": "string",
+          "enum": [
+            "foo",
+            "bar"
+          ],
+          "description": "Define a required string property with enum"
+        },
+        "boolean": {
+          "type": "boolean",
+          "description": "Define a required boolean property"
+        },
+        "integer": {
+          "type": "integer",
+          "description": "Define a required integer property"
+        },
+        "number": {
+          "type": "number",
+          "description": "Define a required number property"
+        },
+        "array": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Define a required string array property"
+        },
+        "string_optional": {
+          "type": "string",
+          "description": "Define a optional string property"
+        },
+        "array_optional": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Define a optional string array property"
+        }
+      },
+      "required": [
+        "string",
+        "string_enum",
+        "boolean",
+        "integer",
+        "number",
+        "array"
+      ]
+    },
+    "mcp": "skogai-tools"
+  },
+  {
+    "name": "skogai_tools_execute_py_code",
+    "description": "Execute the python code.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Python code to execute, such as `print(\"hello world\")`"
+        }
+      },
+      "required": [
+        "code"
+      ]
+    },
+    "mcp": "skogai-tools"
   }
 ]
