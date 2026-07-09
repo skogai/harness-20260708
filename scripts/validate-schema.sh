@@ -79,14 +79,23 @@ while IFS= read -r -d '' file; do
   [[ "$first" == "---" ]] || echo "$first" | grep -qE "^<[a-z]" || continue
 
   total=$((total + 1))
-  result="$(uv run "$HELPER" "$SCHEMA_DIR" "$file" 2>&1)" || true
+  set +e
+  result="$(uv run "$HELPER" "$SCHEMA_DIR" "$file" 2>&1)"
+  helper_status=$?
+  set -e
   echo "  $result"
 
-  case "${result:0:4}" in
-  PASS) pass=$((pass + 1)) ;;
-  FAIL) fail=$((fail + 1)) ;;
-  WARN) warn=$((warn + 1)) ;;
-  esac
+  if grep -q '^PASS' <<<"$result"; then
+    pass=$((pass + 1))
+  elif grep -q '^FAIL' <<<"$result"; then
+    fail=$((fail + 1))
+  elif grep -q '^WARN' <<<"$result"; then
+    warn=$((warn + 1))
+  elif [[ "$helper_status" -ne 0 ]]; then
+    fail=$((fail + 1))
+  else
+    warn=$((warn + 1))
+  fi
 
 done < <(find "$ROOT" -type f -name "*.md" -print0 | sort -z)
 

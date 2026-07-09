@@ -23,6 +23,7 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 try:
     import jsonschema
+    from jsonschema import RefResolver
 except ImportError:
     print("ERROR: missing deps — run via: uv run validate_router.py (or: pip install jsonschema pyyaml)")
     sys.exit(2)
@@ -30,7 +31,18 @@ except ImportError:
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from _lib import parse_frontmatter, extract_xml_sections  # noqa: E402
 
-SCHEMA_PATH = Path(__file__).resolve().parent.parent / "schemas" / "router.schema.json"
+SCHEMA_DIR = Path(__file__).resolve().parent.parent / "templates" / "schemas"
+SCHEMA_PATH = SCHEMA_DIR / "router.schema.json"
+
+
+def make_resolver():
+    store = {}
+    for path in SCHEMA_DIR.glob("*.json"):
+        schema = json.loads(path.read_text())
+        schema_id = schema.get("$id", path.name)
+        store[schema_id] = schema
+        store[path.name] = schema
+    return RefResolver(base_uri=SCHEMA_DIR.as_uri() + "/", referrer={}, store=store)
 
 
 def validate_file(path, schema):
@@ -47,9 +59,14 @@ def validate_file(path, schema):
         return 0
 
     sections = extract_xml_sections(raw)
-    doc = {"type": doc_type, "frontmatter": fm, "sections": sections}
+    doc = {
+        "path": str(path),
+        "type": doc_type,
+        "frontmatter": fm,
+        "sections": sections,
+    }
 
-    validator = jsonschema.Draft202012Validator(schema)
+    validator = jsonschema.Draft202012Validator(schema, resolver=make_resolver())
     errors = sorted(validator.iter_errors(doc), key=lambda e: list(e.path))
 
     if errors:

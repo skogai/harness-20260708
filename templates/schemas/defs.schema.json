@@ -5,7 +5,7 @@
   "$defs": {
     "type": {
       "type": "string",
-      "enum": ["router", "document"]
+      "enum": ["router", "document", "skill"]
     },
     "variant": {
       "type": "string",
