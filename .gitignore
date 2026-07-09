@@ -72,3 +72,4 @@ backup-*/
 # Claude Code backups
 .claude.backup.*
 /.claude/worktrees
+/.claude/data/sessions
