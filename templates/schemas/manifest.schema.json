@@ -1,0 +1,56 @@
+{
+  "$id": "https://skogai.se/schemas/manifest.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "manifest",
+  "description": "skogai.json: the contract a project promises to fulfill. Declares which agents/skills/mcps/profile/model the harness must install and keep in sync. Validating this only confirms the promise is well-formed, not that the promised entities exist on disk -- see agent.schema.json and skill.schema.json for those.",
+  "type": "object",
+  "required": ["version"],
+  "properties": {
+    "version": { "const": 1 },
+    "targets": {
+      "type": "array",
+      "description": "Agent ids this project promises to sync into -- each must resolve to an agent.schema.json entry in the harness's registry",
+      "items": { "$ref": "defs.schema.json#/$defs/slug" }
+    },
+    "profile": { "$ref": "#/$defs/profileId" },
+    "skills": {
+      "type": "array",
+      "description": "Skill ids this project promises to install -- each must resolve to a skill.schema.json document",
+      "items": { "$ref": "defs.schema.json#/$defs/slug" }
+    },
+    "mcps": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/mcpServer" }
+    },
+    "model": {
+      "type": "object",
+      "description": "Agent id -> model id overrides",
+      "additionalProperties": { "type": "string" }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "profileId": {
+      "type": "string",
+      "enum": ["all", "harness-meta", "minimal", "custom"]
+    },
+    "mcpServer": {
+      "type": "object",
+      "description": "A Model Context Protocol server entry: either stdio (command) or remote (url), never both.",
+      "required": ["name"],
+      "oneOf": [
+        { "required": ["command"] },
+        { "required": ["url"] }
+      ],
+      "properties": {
+        "name": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]{0,63}$" },
+        "command": { "type": "string" },
+        "args": { "type": "array", "items": { "type": "string" } },
+        "url": { "type": "string", "pattern": "^https://" },
+        "env": { "type": "object", "additionalProperties": { "type": "string" } },
+        "headers": { "type": "object", "additionalProperties": { "type": "string" } }
+      },
+      "additionalProperties": false
+    }
+  }
+}

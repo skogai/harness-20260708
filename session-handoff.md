@@ -3,8 +3,9 @@
 ## Current Objective
 
 - Goal: Design and plan a `.skogai/` state directory (parallel to `.claude/`/`.codex/`) with a self-describing template object model, replacing the ad hoc overlap between `init`, `harness-init`, and `sync` for state scaffolding.
-- Current status: planning-only pass complete. `docs/dot-skogai-templates.md` written; `feat-013`..`feat-017` added to `feature_list.json` (status `pending`), each cast as intent / needed input / expected output. No engine/CLI code written yet — `feat-013` (manifest schema) is next up. `feat-010`..`feat-012` (docs currency map, turn lifecycle contract, validator surface) remain independently queued and unstarted.
-- Branch / commit: current branch `master`; changes not yet committed (`feature_list.json` modified, `docs/dot-skogai-templates.md` new, `progress.md`/`session-handoff.md` updated). Some pre-existing uncommitted changes from before this session (`skogai.json`, `src/profiles.js`, `test/manifest-sync.test.js`, staged `.skogai`) are untouched by this pass.
+- Current status: planning pass complete, plus a first concrete schema draft (`feat-018`, done) ahead of `feat-013`. `docs/dot-skogai-templates.md` written; `feat-013`..`feat-017` in `feature_list.json` remain `pending` — real engine/CLI code still not written. `templates/schemas/{agent,skill,manifest}.schema.json` now exist as domain-object drafts (agent = plain object, skill = document-type practice example, manifest = the skogai.json contract), following the house style of `templates/schemas/{document,defs,router}.schema.json`. `feat-013` itself (formal manifest schema with `state`/`templates` fields) is still next up and NOT the same thing as the `manifest.schema.json` drafted this session — that one only covers today's fields (version/targets/profile/skills/mcps/model). `feat-010`..`feat-012` (docs currency map, turn lifecycle contract, validator surface) remain independently queued and unstarted.
+- Branch / commit: current branch `master`; changes not yet committed (`feature_list.json`, `progress.md`, `session-handoff.md` modified; `templates/schemas/*.json` new; `scripts/_validate_file.py` and `scripts/validate-schema.sh` fixed — both were already untracked from a prior session, now modified further). Some pre-existing uncommitted/untracked changes from before this session (`.envrc`, `scripts/_lib.py`, `scripts/list-xml-tags.sh`, `scripts/list_routers.py`, `scripts/list_xml_tags.py`, `scripts/parse-frontmatter.sh`, `scripts/validate_router.py`) are untouched by this pass.
+- Important context: `.skogai` in this repo is a **symlink into a separate real git repo** (`/home/skogix/dot-skogai`, ahead of its own `origin/master` by 1 commit, with its own uncommitted changes). Do not edit through that symlink — `templates/` is this repo's authored source; `.skogai/` is a future deploy target for `feat-016`'s engine, nothing deploys into it yet.
 
 ## Completed This Session
 
@@ -45,6 +46,12 @@
 - [x] Added `feat-013`..`feat-017` to `feature_list.json` (status `pending`): manifest schema, functional contract, template engine, `templates/` mirror + `.skogai/` content + wiring (retiring `harness-init`), status drift detection + docs/test close-out.
 - [x] Ran `./init.sh`: install clean, lint clean, 47/47 tests pass, harness validation 80/100 (pre-existing gaps, unrelated to this pass).
 - [x] Updated `progress.md` and this handoff for the `.skogai/` planning pass.
+- [x] Drafted `templates/schemas/agent.schema.json`, `templates/schemas/skill.schema.json` (document-type practice example), `templates/schemas/manifest.schema.json` (the skogai.json contract) — see `feat-018`.
+- [x] Moved `document.schema.json`/`defs.schema.json`/`router.schema.json` from the `.skogai/` symlink target (`dot-skogai`, a separate repo used only for style reference) into `templates/schemas/`, without otherwise touching `dot-skogai`.
+- [x] Fixed `scripts/_validate_file.py`: PEP 723 inline deps for `uv run`, added missing `"skill"` entry to `TYPE_TO_SCHEMA`, caught `yaml.YAMLError` cleanly instead of crashing.
+- [x] Fixed `scripts/validate-schema.sh`: guarded `result=$(...)` with `|| true` so a `FAIL` no longer silently kills the script under `set -e` before the summary prints.
+- [x] Recorded `feat-018` as done in `feature_list.json` with verification evidence.
+- [x] Updated `progress.md` and this handoff for the schema-draft pass.
 
 ## Verification Evidence
 
@@ -74,6 +81,9 @@
 | Planning state | `node -e "JSON.parse(require('fs').readFileSync('feature_list.json'))"` | Pass | Confirms `feat-013`..`feat-017` keep JSON valid. |
 | Whitespace | `git diff --check -- feature_list.json docs/dot-skogai-templates.md` | Pass | No whitespace errors in new/changed files. |
 | Full init | `./init.sh` | Pass, 80/100 harness validation | install clean, lint clean, 47/47 tests; harness validation FAILs (startup workflow, definition of done, one-feature-at-a-time, completion gate, end-of-session procedure) predate this pass. |
+| JSON validity | `node -e "JSON.parse(...)"` on each `templates/schemas/*.json` | Pass | All 6 schema files (`agent`, `defs`, `document`, `manifest`, `router`, `skill`) are valid JSON. |
+| Schema validator | `./scripts/validate-schema.sh ./templates` | Pass (exit 1 expected — see notes) | 11 checked, 0 passed, 2 failed, 8 warned. Failures/warnings are pre-existing content issues in `templates/.claude/skills/*/SKILL.md` (unquoted colons in frontmatter descriptions; no `type:` field, since `skill.schema.json` isn't wired to real files yet), not regressions. Script now completes and prints a full summary — previously it silently aborted mid-run before any summary line under `set -e`. |
+| Tests | `bun test` | Pass, 47/47 | Confirms the `_validate_file.py`/`validate-schema.sh` fixes didn't touch anything covered by the existing suite (they aren't). |
 
 ## Files Changed
 
@@ -111,6 +121,14 @@
 - `docs/dot-skogai-templates.md` - new index doc for the `.skogai/` template architecture.
 - `feature_list.json` - added `feat-013`..`feat-017` for the `.skogai/` work, status `pending`.
 - `progress.md`, `session-handoff.md` - updated for the `.skogai/` planning pass.
+- `templates/schemas/agent.schema.json` - new, plain domain object.
+- `templates/schemas/skill.schema.json` - new, document-type practice example.
+- `templates/schemas/manifest.schema.json` - new, the skogai.json contract.
+- `templates/schemas/document.schema.json`, `templates/schemas/defs.schema.json`, `templates/schemas/router.schema.json` - moved here from `.skogai/schemas/` (the `dot-skogai` symlink target), content unchanged.
+- `scripts/_validate_file.py` - added PEP 723 inline deps, added `"skill"` to `TYPE_TO_SCHEMA`, caught `yaml.YAMLError` cleanly.
+- `scripts/validate-schema.sh` - guarded `result=$(...)` with `|| true` so a `FAIL` doesn't silently abort the script under `set -e`.
+- `feature_list.json` - added `feat-018`, status `done`.
+- `progress.md`, `session-handoff.md` - updated for the schema-draft pass.
 
 ## Decisions Made
 
@@ -125,6 +143,8 @@
 - Define a harness "turn" before adding more hook implementations. A turn starts from a user message, hook event, resume, or other initiative source and ends when the agent returns the final response or hook decision.
 - Treat `./init.sh` as one verification command inside the turn lifecycle, not as the complete lifecycle boundary.
 - Do a documentation currency pass before implementing the turn lifecycle, because current docs mix implemented behavior with future hook/turn proposals.
+- `templates/` is this repo's authored schema source; `.skogai/` (a symlink into the separate `dot-skogai` repo) is a future deploy target for `feat-016`'s engine, not something to hand-edit. `agent`/`manifest` are plain domain-object schemas (no document `type`); `skill` is a document type built on `document.schema.json`/`router.schema.json`'s `allOf` pattern, kept as a practice example — not yet wired to real `SKILL.md` frontmatter (those files have no `type: skill` field today), and `"skill"` still needs adding to `defs.schema.json`'s `type` enum before any real document could validate against it (same open follow-up noted earlier for `router`-style additions).
+- `manifest.schema.json` drafted this session (version/targets/profile/skills/mcps/model) is intentionally narrower than `feat-013`'s planned manifest schema, which still needs `state` and `templates` fields added — don't treat `feat-018` as having completed `feat-013`.
 - State gets its own directory, `.skogai/`, parallel to `.claude/`/`.codex/`; only `skogai.json` stays loose at project root. This repo's own root state files are explicitly not migrated in this pass — they govern the current session via `SKOGAI.md`.
 - `templates/` mirrors the real installed output tree 1:1 (fixes the latent `.codex` naming mismatch, clarifies `blocks/` are spliced prompt fragments, adds `templates/.skogai/`).
 - A template is a self-describing frontmatter object (`type`, `permalink`, `tag`, `symlink-source`, `symlink-target`), not a hardcoded copy-map entry; only `type: template` is engine-actionable.
