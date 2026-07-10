@@ -1,0 +1,45 @@
+# Declarative environment for the harness repo (https://mise.jdx.dev).
+#
+# Fresh clone:
+#   mise trust && mise install
+# then run checks with:
+#   mise run check
+#
+# Machine-wide settings (SKOGAI_MODE, workstation paths, secrets such as
+# SKOGAI_GH_TOKEN) belong in ~/.config/mise/config.toml or a gitignored
+# .env / mise.local.toml — never in this file.
+
+[tools]
+node = "22"
+bun = "1.3.11"
+python = "3.11"
+uv = "latest"
+"github:sigoden/argc" = "latest"
+
+[env]
+# Create and activate the project venv automatically (replaces the
+# `source_env .venv/bin/activate` line from .envrc).
+_.python.venv = { path = ".venv", create = true }
+# Optional machine-local overrides and secrets, gitignored.
+_.file = ".env"
+
+[tasks.test]
+description = "Run the node test suite"
+run = "node --test"
+
+[tasks."test:py"]
+description = "Run the Python test suite for scripts/"
+dir = "scripts"
+run = "python3 -m unittest discover -p 'test_*.py'"
+
+[tasks.check]
+description = "Run all test suites"
+depends = ["test", "test:py"]
+
+[tasks."check:skills"]
+description = "Validate skill definitions (requires provisioned skills dir)"
+run = "./scripts/check-skills.sh"
+
+[tasks."check:schema"]
+description = "Validate schemas"
+run = "./scripts/validate-schema.sh"

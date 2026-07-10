@@ -54,6 +54,14 @@ zig-cache/
 .env.test.local
 .env.production.local
 
+# Python
+__pycache__/
+.venv/
+
+# mise machine-local overrides (never commit secrets!)
+mise.local.toml
+.mise.local.toml
+
 # Temporary files
 *.tmp
 .temp/
