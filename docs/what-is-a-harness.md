@@ -117,3 +117,32 @@ each claude code behavior generalizes to.
 
 `codex cli` will work as our "beta tester" when it comes to converting
 harness specific functionality
+
+to test that harness additions (system prompt, tools, settings, mcp,
+skills, hooks, memory) actually change behavior, we keep a literal
+zero-configuration claude code instance around as a diff baseline: no
+system prompt, no tools, no settings, no mcp, no skills. it is not a
+script, just cli flags plus an explicit, empty settings file:
+[`.claude/settings.bare.json`](../.claude/settings.bare.json).
+
+```sh
+ANTHROPIC_API_KEY=<key> claude \
+  --bare \
+  --system-prompt "" \
+  --tools "" \
+  --setting-sources "" \
+  --strict-mcp-config \
+  --disable-slash-commands \
+  --settings .claude/settings.bare.json \
+  -p "<prompt>"
+```
+
+`--bare` skips hooks, lsp, plugin sync, attribution, auto-memory,
+prefetches, keychain reads, and CLAUDE.md auto-discovery (it also
+requires `ANTHROPIC_API_KEY` since oauth/keychain auth is disabled).
+`--system-prompt ""`, `--tools ""`, `--setting-sources ""`,
+`--strict-mcp-config`, and `--disable-slash-commands` zero out the
+system prompt, tools, settings, mcp, and skills respectively.
+`.claude/settings.bare.json` is `{}` on purpose: the emptiness is the
+pinned proof that zero settings are required, not a load-bearing
+config.
