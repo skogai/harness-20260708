@@ -117,3 +117,55 @@ each claude code behavior generalizes to.
 
 `codex cli` will work as our "beta tester" when it comes to converting
 harness specific functionality
+
+to test that harness additions (system prompt, tools, settings, mcp,
+skills, hooks, memory) actually change behavior, we keep a literal
+zero-configuration claude code instance around as a diff baseline: no
+system prompt, no tools, no settings, no mcp, no skills. it is not a
+script, just cli flags plus an explicit, empty settings file:
+[`.claude/settings.bare.json`](../.claude/settings.bare.json).
+
+```sh
+claude \
+  --safe-mode \
+  --system-prompt "" \
+  --tools "" \
+  --setting-sources "" \
+  --strict-mcp-config \
+  --disable-slash-commands \
+  --settings .claude/settings.bare.json \
+  -p "<prompt>"
+```
+
+`--safe-mode` disables all customizations (CLAUDE.md, skills, plugins,
+hooks, mcp servers, custom commands/agents, output styles, themes,
+keybindings) while leaving auth, model selection, built-in tools, and
+permissions working normally — unlike `--bare`, which forces
+`ANTHROPIC_API_KEY`/`apiKeyHelper` auth and never reads oauth or the
+keychain, breaking normal subscription login. `--system-prompt ""`,
+`--tools ""`, `--setting-sources ""`, `--strict-mcp-config`, and
+`--disable-slash-commands` zero out the system prompt, tools, settings,
+mcp, and skills respectively.
+`.claude/settings.bare.json` is `{}` on purpose: the emptiness is the
+pinned proof that zero settings are required, not a load-bearing
+config.
+
+### harness knobs
+
+the bare baseline is one fixed point (everything off). building an
+actual harness means dialing individual pieces back on, one at a time,
+to see what each one changes. these `claude` cli flags are the knobs,
+each one isolating a single plane from `harness/principles.md`:
+
+| flag | plane | what it isolates |
+| --- | --- | --- |
+| `--append-system-prompt <prompt>` | system prompt | layers on top of the default prompt instead of replacing it (`--system-prompt` replaces wholesale) — closer to how most harnesses actually customize behavior |
+| `--agents <json>` / `--agent <name>` | agents | define or select custom agents inline, without `.claude/agents/*.md` files |
+| `--allowedTools` / `--disallowedTools` | tools | subtract or add individual tools instead of all-or-nothing (`--tools ""` / `--tools "default"`) |
+| `--mcp-config <configs...>` (with `--strict-mcp-config`) | mcp | inject exactly one mcp server deliberately, instead of none |
+| `--permission-mode <mode>` | permissions | toggle `plan` / `bypassPermissions` / `dontAsk` / etc. as its own independent axis |
+| `--exclude-dynamic-system-prompt-sections` | prompt cache | strips the per-machine boilerplate (cwd, env, memory paths, git status) out of the system prompt, isolating prompt-cache effects from the rest |
+
+use these against the bare baseline to build a/b comparisons: bare vs.
+bare+one-knob, to attribute an observed behavior change to a single
+harness addition rather than the whole stack at once.
