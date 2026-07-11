@@ -10,6 +10,12 @@ runtime planes from [what-is-a-harness](../what-is-a-harness.md); where a
 deep-dive doc exists it is linked, and the relevant failure modes from
 [gotchas](gotchas.md) are noted.
 
+[modular automation](modular-automation-pattern.md) is the cross-cutting
+substrate beneath these patterns: routers select capabilities, hooks adapt host
+events, standalone modules perform deterministic work, and validators record
+observable outcomes. prompts retain judgment and ambiguity instead of carrying
+mechanical runtime duties.
+
 | # | pattern | plane | deep dive |
 |---|---------|-------|-----------|
 | 1 | request assembler | request assembly | [context-engineering](context-engineering-pattern.md) |

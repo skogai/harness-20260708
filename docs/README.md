@@ -7,7 +7,9 @@ knowledge-extraction stage so it can be merged with the remaining modules.
 
 - `what-is-a-harness.md` — the core concept doc (formerly `.skogix/what-is-a-harness.md`)
 - `harness/` — extracted pattern language: principles, gotchas, and the
-  individual harness patterns (formerly `.skogix/harness/`)
+  individual harness patterns, including the modular automation boundary
+  between prompts, hooks, and standalone executable units (formerly
+  `.skogix/harness/`)
 - `archive/` — docs from the previous harness generation, kept for reference:
   specs, features, blueprint, vision, implementation notes, and the final
   `progress.md` / `session-handoff.md` state (formerly `.old/docs/` and `.old/`)

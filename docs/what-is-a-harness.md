@@ -73,6 +73,7 @@ deep-dive patterns (referenced from the pattern language):
 - @harness/multi-agent-pattern.md - coordinator, fork, swarm; synthesize instead of delegating understanding
 - @harness/lifecycle-bootstrap-pattern.md - hooks, trust boundaries, background tasks, staged bootstrap
 - @harness/skill-runtime-pattern.md - packaging reusable behavior with progressive disclosure
+- @harness/modular-automation-pattern.md - deterministic, standalone modules beneath prompts, hooks, and routing
 
 </routes>
 
