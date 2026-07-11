@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
-if [[ -f "/home/skogix/dev/harness/skogix-cleanup-restart/.venv/bin/activate" ]]; then
-    source "/home/skogix/dev/harness/skogix-cleanup-restart/.venv/bin/activate"
+if [[ -f "/home/skogix/harness/.venv/bin/activate" ]]; then
+    source "/home/skogix/harness/.venv/bin/activate"
 fi
 
-python "/home/skogix/dev/harness/skogix-cleanup-restart/argc/run-tool.py" "$(basename "$0")" "$@"
+python "/home/skogix/harness/argc/run-tool.py" "$(basename "$0")" "$@"

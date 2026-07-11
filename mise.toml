@@ -11,10 +11,11 @@
 
 [tools]
 node = "22"
-bun = "1.3.11"
+bun = "latest"
 python = "3.11"
 uv = "latest"
 "github:sigoden/argc" = "latest"
+npm = "latest"
 
 [env]
 # Create and activate the project venv automatically (replaces the
@@ -43,3 +44,7 @@ run = "./scripts/check-skills.sh"
 [tasks."check:schema"]
 description = "Validate schemas"
 run = "./scripts/validate-schema.sh"
+
+[tasks.install-harness]
+description = "Install the harness globally"
+run = "./scripts/install-global.sh"
