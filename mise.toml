@@ -32,9 +32,14 @@ description = "Run the Python test suite for scripts/"
 dir = "scripts"
 run = "python3 -m unittest discover -p 'test_*.py'"
 
+[tasks."test:skogharness"]
+description = "Run the skogharness Python package test suite"
+dir = "skogharness"
+run = "uv run pytest"
+
 [tasks.check]
 description = "Run all test suites"
-depends = ["test", "test:py"]
+depends = ["test", "test:py", "test:skogharness"]
 
 [tasks."check:skills"]
 description = "Validate skill definitions (requires provisioned skills dir)"
