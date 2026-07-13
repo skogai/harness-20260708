@@ -1,2 +1,5 @@
 /.claude/data/sessions
 /.claude/worktrees
+
+# Machine-local SkogAI config injected by environment setup; contains secrets.
+/.skogai/config.json
