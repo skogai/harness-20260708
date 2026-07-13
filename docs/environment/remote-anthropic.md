@@ -1,4 +1,4 @@
-# Environment: remote
+# Environment: remote-anthropic
 
 The Anthropic-managed Claude Code remote environment (claude.ai/code sessions).
 An isolated, ephemeral container: the repo is cloned fresh at session start and
