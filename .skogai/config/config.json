@@ -66,7 +66,7 @@
       }
     },
     "meta": {
-      "last_updated": 1783952732.9683125,
+      "last_updated": 1783958488.7780585,
       "version": 2
     },
     "chattest": {
@@ -165,5 +165,10 @@
       "readme": "[@file:\"/home/skogix/dot-skogai/personal/skogix/user.md\"]"
     }
   },
-  "credentials": {}
+  "credentials": {},
+  "skogai": {
+    "env": {
+      "PAGER": "less"
+    }
+  }
 }
