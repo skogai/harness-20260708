@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-uv tool install "git+https://github.com/skogai/cli.git" --force --upgrade
