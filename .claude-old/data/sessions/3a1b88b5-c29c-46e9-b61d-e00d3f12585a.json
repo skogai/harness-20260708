@@ -1,8 +1,0 @@
-{
-  "session_id": "3a1b88b5-c29c-46e9-b61d-e00d3f12585a",
-  "prompts": [
-    "echo $SKOGAI_CONFIG_DIR",
-    "h/exit"
-  ],
-  "agent_name": "Nexus"
-}

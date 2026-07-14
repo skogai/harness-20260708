@@ -1,9 +1,0 @@
-{
-  "session_id": "115ffc08-5f24-4bba-bfdd-b679fae9fda7",
-  "prompts": [
-    "hi claude",
-    "we are working on skogcli and documentation about it ",
-    "well we need how to actually use it documented better with the goal being to essentially set skogai config dir on startup in all environments. look start by creating docs/skogai and write to it every turn something is confirmed by me"
-  ],
-  "agent_name": "Quantum"
-}
