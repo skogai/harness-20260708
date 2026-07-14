@@ -1,0 +1,15 @@
+{
+  "session_id": "smoke-test",
+  "transcript_path": "/tmp/skoghooks-smoke/transcript.jsonl",
+  "cwd": "/tmp/skoghooks-smoke",
+  "hook_event_name": "PostToolUse",
+  "tool_name": "Bash",
+  "tool_input": {
+    "command": "echo ok"
+  },
+  "tool_response": {
+    "stdout": "ok",
+    "stderr": "",
+    "interrupted": false
+  }
+}

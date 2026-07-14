@@ -1,0 +1,8 @@
+{
+  "session_id": "smoke-test",
+  "transcript_path": "/tmp/skoghooks-smoke/transcript.jsonl",
+  "cwd": "/tmp/skoghooks-smoke",
+  "hook_event_name": "PreCompact",
+  "trigger": "manual",
+  "custom_instructions": ""
+}

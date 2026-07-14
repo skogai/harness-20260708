@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "skoghooks",
+  "description": "Reference implementation of all 13 Claude Code hook lifecycle events — TTS notifications, LLM-generated completion messages, smart permission auto-allow, session context injection, and transcript archiving.",
+  "owner": {
+    "name": "skogix",
+    "email": "emil@skogsund.se"
+  },
+  "plugins": [
+    {
+      "name": "skoghooks",
+      "displayName": "Skoghooks",
+      "source": "./plugins/skoghooks",
+      "description": "All 13 Claude Code hook lifecycle events in one plugin. Covers session management, tool gating (blocks rm -rf and .env access), TTS alerts, LLM-generated completion messages, smart permission auto-allow for read-only ops, pre-compact transcript backup, and session chat export.",
+      "version": "1.0.0",
+      "author": {
+        "name": "skogix",
+        "email": "emil@skogsund.se"
+      },
+      "license": "MIT",
+      "keywords": ["hooks", "tts", "notifications", "session", "permissions", "llm", "lifecycle"],
+      "category": "automation"
+    }
+  ]
+}

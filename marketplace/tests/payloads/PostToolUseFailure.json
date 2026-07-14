@@ -1,0 +1,12 @@
+{
+  "session_id": "smoke-test",
+  "transcript_path": "/tmp/skoghooks-smoke/transcript.jsonl",
+  "cwd": "/tmp/skoghooks-smoke",
+  "hook_event_name": "PostToolUseFailure",
+  "tool_name": "Bash",
+  "tool_input": {
+    "command": "false"
+  },
+  "tool_use_id": "toolu_smoke",
+  "error": "command exited with code 1"
+}

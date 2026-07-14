@@ -1,0 +1,11 @@
+{
+  "session_id": "smoke-test",
+  "transcript_path": "/tmp/skoghooks-smoke/transcript.jsonl",
+  "cwd": "/tmp/skoghooks-smoke",
+  "hook_event_name": "PermissionRequest",
+  "tool_name": "Read",
+  "tool_input": {
+    "file_path": "/tmp/skoghooks-smoke/file.txt"
+  },
+  "tool_use_id": "toolu_smoke"
+}
