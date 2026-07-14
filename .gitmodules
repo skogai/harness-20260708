@@ -1,3 +1,0 @@
-[submodule "plugins/skoghooks"]
-	path = plugins/skoghooks
-	url = git@github.com:skogai/skoghooks.git
