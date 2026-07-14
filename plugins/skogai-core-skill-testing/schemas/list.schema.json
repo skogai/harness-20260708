@@ -1,0 +1,10 @@
+{
+  "$id": "https://skog.ai/schemas/list.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Immutable directed sequence (.list)",
+  "description": "A linked list of immutable entries. Items are never mutated or removed, only appended. Array order is directional: position carries meaning. Supports append-only logs and ordered rankings. Serializes to `- [ ] <message>` or `- [x] <message>`.",
+  "type": "array",
+  "items": {
+    "$ref": "defs.schema.json#/$defs/listEntry"
+  }
+}

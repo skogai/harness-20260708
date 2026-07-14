@@ -1,0 +1,47 @@
+{
+  "$id": "https://skog.ai/schemas/router.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    { "$ref": "document.schema.json" },
+    {
+      "properties": {
+        "type": { "const": "router" },
+        "frontmatter": {
+          "type": "object",
+          "properties": {
+            "type": { "const": "router" },
+            "permalink": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": ["type", "permalink"]
+        },
+        "sections": {
+          "type": "array",
+          "allOf": [
+            {
+              "contains": {
+                "type": "object",
+                "properties": {
+                  "name": { "const": "objective" }
+                },
+                "required": ["name"]
+              }
+            },
+            {
+              "contains": {
+                "type": "object",
+                "properties": {
+                  "name": { "const": "routing" }
+                },
+                "required": ["name"]
+              }
+            }
+          ]
+        }
+      },
+      "required": ["type", "frontmatter", "sections"]
+    }
+  ]
+}

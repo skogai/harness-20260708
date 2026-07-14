@@ -1,0 +1,48 @@
+{
+  "$id": "https://skog.ai/schemas/skill.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    { "$ref": "document.schema.json" },
+    {
+      "properties": {
+        "type": { "const": "skill" },
+        "frontmatter": {
+          "type": "object",
+          "properties": {
+            "type": { "const": "skill" },
+            "name": { "$ref": "defs.schema.json#/$defs/slug" },
+            "description": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": ["type", "name", "description"]
+        },
+        "sections": {
+          "type": "array",
+          "allOf": [
+            {
+              "contains": {
+                "type": "object",
+                "properties": {
+                  "name": { "const": "objective" }
+                },
+                "required": ["name"]
+              }
+            },
+            {
+              "contains": {
+                "type": "object",
+                "properties": {
+                  "name": { "const": "routing" }
+                },
+                "required": ["name"]
+              }
+            }
+          ]
+        }
+      },
+      "required": ["type", "frontmatter", "sections"]
+    }
+  ]
+}

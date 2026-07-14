@@ -1,0 +1,76 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./hooks/session-start.sh",
+            "timeout": 10,
+            "statusMessage": "Loading SkogAI core context"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./hooks/user-prompt-submit.sh",
+            "timeout": 10,
+            "statusMessage": "Loading SkogAI prompt lessons"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./hooks/pre-tool-use.sh",
+            "timeout": 10,
+            "statusMessage": "Running SkogAI pre-tool guard"
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./hooks/permission-request.sh",
+            "timeout": 10,
+            "statusMessage": "Logging SkogAI permission request"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./hooks/post-tool-use.sh",
+            "timeout": 10,
+            "statusMessage": "Logging SkogAI tool completion"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./hooks/stop.sh",
+            "timeout": 10,
+            "statusMessage": "Running SkogAI core stop hook"
+          }
+        ]
+      }
+    ]
+  }
+}

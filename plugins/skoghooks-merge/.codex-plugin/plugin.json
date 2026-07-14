@@ -1,0 +1,38 @@
+{
+  "name": "dot-core",
+  "version": "0.0.4",
+  "description": "SkogAI base plugin for building and testing reusable hooks, skills, agent prompts, and tool integrations.",
+  "author": {
+    "name": "skogix",
+    "email": "skogix@skogai.se",
+    "url": "https://github.com/skogai"
+  },
+  "homepage": "https://github.com/skogai/.skogai",
+  "repository": "https://github.com/skogai/.skogai",
+  "license": "MIT",
+  "keywords": ["skogai", "codex", "plugin", "hooks", "skills", "agents"],
+  "skills": "./skills/",
+  "hooks": "./hooks.json",
+  "mcpServers": "./.mcp.json",
+  "apps": "./.app.json",
+  "interface": {
+    "displayName": "SkogAI Core",
+    "shortDescription": "Core plugin for SkogAI",
+    "longDescription": "Base plugin for the SkogAI tooling layer. It gives new hooks, skills, agent prompts, MCP definitions, and app integrations one local place to be developed, loaded, tested, and promoted before they become standalone plugins.",
+    "developerName": "SkogAI",
+    "category": "Productivity",
+    "capabilities": ["Interactive", "Write"],
+    "websiteURL": "https://github.com/SkogAI/.skogai",
+    "privacyPolicyURL": "https://privacy.skogai.se",
+    "termsOfServiceURL": "https://tos.skogai.se",
+    "defaultPrompt": [
+      "Show the active SkogAI core hooks, skills, agents, MCP servers, and app definitions.",
+      "Help me turn a reusable workflow into a SkogAI core skill or hook.",
+      "Audit this plugin for hook output, skill routing, and plugin-loading issues."
+    ],
+    "brandColor": "#0F766E",
+    "composerIcon": "./assets/todo.png",
+    "logo": "./assets/todo.png",
+    "screenshots": ["./assets/todo.png"]
+  }
+}

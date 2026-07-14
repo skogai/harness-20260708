@@ -1,0 +1,79 @@
+{
+  "$id": "https://skog.ai/schemas/decision.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Architectural decision record",
+  "description": "Records a specific choice made at a point in time: what was decided, who decided it, and why.",
+  "allOf": [
+    { "$ref": "document.schema.json" },
+    {
+      "properties": {
+        "type": { "const": "decision" },
+        "frontmatter": {
+          "type": "object",
+          "required": [
+            "type",
+            "decision",
+            "date",
+            "decisionStatus",
+            "deciders"
+          ],
+          "properties": {
+            "type": { "const": "decision" },
+            "decision": {
+              "type": "string",
+              "minLength": 1
+            },
+            "date": {
+              "type": "string",
+              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+            },
+            "decisionStatus": {
+              "$ref": "defs.schema.json#/$defs/decisionStatus"
+            },
+            "deciders": {
+              "oneOf": [
+                { "type": "string" },
+                {
+                  "type": "array",
+                  "items": { "type": "string" },
+                  "minItems": 1
+                }
+              ]
+            },
+            "principle": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": true
+        },
+        "sections": {
+          "type": "array",
+          "allOf": [
+            {
+              "contains": {
+                "type": "object",
+                "properties": { "name": { "const": "context" } },
+                "required": ["name"]
+              }
+            },
+            {
+              "contains": {
+                "type": "object",
+                "properties": { "name": { "const": "decision" } },
+                "required": ["name"]
+              }
+            },
+            {
+              "contains": {
+                "type": "object",
+                "properties": { "name": { "const": "rationale" } },
+                "required": ["name"]
+              }
+            }
+          ]
+        }
+      },
+      "required": ["type", "frontmatter", "sections"]
+    }
+  ]
+}

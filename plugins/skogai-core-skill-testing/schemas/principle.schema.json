@@ -1,0 +1,60 @@
+{
+  "$id": "https://skog.ai/schemas/principle.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Standing premise",
+  "description": "A defeasible axiom accepted as true and used as a load-bearing premise in downstream reasoning.",
+  "allOf": [
+    { "$ref": "document.schema.json" },
+    {
+      "properties": {
+        "type": { "const": "principle" },
+        "frontmatter": {
+          "type": "object",
+          "required": ["type", "statement"],
+          "properties": {
+            "type": { "const": "principle" },
+            "statement": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "additionalProperties": true
+        },
+        "sections": {
+          "type": "array",
+          "allOf": [
+            {
+              "contains": {
+                "type": "object",
+                "properties": { "name": { "const": "rationale" } },
+                "required": ["name"]
+              }
+            },
+            {
+              "contains": {
+                "type": "object",
+                "properties": { "name": { "const": "implies" } },
+                "required": ["name"]
+              }
+            },
+            {
+              "contains": {
+                "type": "object",
+                "properties": { "name": { "const": "override" } },
+                "required": ["name"]
+              }
+            },
+            {
+              "contains": {
+                "type": "object",
+                "properties": { "name": { "const": "examples" } },
+                "required": ["name"]
+              }
+            }
+          ]
+        }
+      },
+      "required": ["type", "frontmatter", "sections"]
+    }
+  ]
+}

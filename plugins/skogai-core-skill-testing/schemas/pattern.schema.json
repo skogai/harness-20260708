@@ -1,0 +1,51 @@
+{
+  "$id": "https://skog.ai/schemas/pattern.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Actionable principle in repeated practice",
+  "description": "The concrete, recurring form of a principle or promoted lesson.",
+  "allOf": [
+    { "$ref": "document.schema.json" },
+    {
+      "properties": {
+        "type": { "const": "pattern" },
+        "frontmatter": {
+          "type": "object",
+          "properties": {
+            "type": { "const": "pattern" },
+            "principle": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": true
+        },
+        "sections": {
+          "type": "array",
+          "allOf": [
+            {
+              "contains": {
+                "type": "object",
+                "properties": { "name": { "const": "context" } },
+                "required": ["name"]
+              }
+            },
+            {
+              "contains": {
+                "type": "object",
+                "properties": { "name": { "const": "pattern" } },
+                "required": ["name"]
+              }
+            },
+            {
+              "contains": {
+                "type": "object",
+                "properties": { "name": { "const": "examples" } },
+                "required": ["name"]
+              }
+            }
+          ]
+        }
+      },
+      "required": ["type", "sections"]
+    }
+  ]
+}
