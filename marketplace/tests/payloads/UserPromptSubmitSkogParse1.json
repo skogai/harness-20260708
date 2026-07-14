@@ -1,0 +1,7 @@
+{
+  "session_id": "smoke-test",
+  "transcript_path": "/tmp/skoghooks-smoke/transcript.jsonl",
+  "cwd": "/tmp/skoghooks-smoke",
+  "hook_event_name": "UserPromptSubmit",
+  "prompt": "[42,true,$ id]"
+}
