@@ -71,7 +71,6 @@
     ]
   },
   "enabledPlugins": {
-    "skoghooks@skoghooks": true,
-    "plugin-dev@claude-plugins-official": true
+    "skoghooks@skoghooks": true
   }
 }
