@@ -1,15 +1,15 @@
 {
-  "name": "ecc",
+  "name": "skogharness",
   "interface": {
     "displayName": "ECC"
   },
   "plugins": [
     {
-      "name": "ecc",
+      "name": "skogharness",
       "version": "2.0.0",
       "source": {
         "source": "local",
-        "path": "./plugins/ecc"
+        "path": "./plugins/skogai"
       },
       "policy": {
         "installation": "AVAILABLE",

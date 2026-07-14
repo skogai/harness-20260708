@@ -1,0 +1,47 @@
+{
+  "name": "skogharness",
+  "owner": {
+    "name": "skogix",
+    "email": "emil@skogsund.se"
+  },
+  "metadata": {
+    "description": "skogai-harness"
+  },
+  "plugins": [
+    {
+      "name": "skogharness",
+      "source": "./",
+      "description": "skogai-harness",
+      "version": "1.0.0",
+      "author": {
+        "name": "skogix",
+        "email": "emil@skogsund.se"
+      },
+      "homepage": "https://skogai.se",
+      "repository": "https://github.com/skogai/harness",
+      "license": "MIT",
+      "keywords": [
+        "agents",
+        "skills",
+        "hooks",
+        "commands",
+        "tdd",
+        "code-review",
+        "security",
+        "best-practices"
+      ],
+      "category": "workflow",
+      "tags": [
+        "agents",
+        "skills",
+        "hooks",
+        "commands",
+        "tdd",
+        "code-review",
+        "security",
+        "best-practices"
+      ],
+      "strict": false
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "name": "skogharness",
+  "version": "1.0.0",
+  "description": "skogharness",
+  "author": {
+    "name": "skogix",
+    "url": "https://skogai.se"
+  },
+  "homepage": "https://skogai.se",
+  "repository": "https://github.com/skogai/harness",
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "agents",
+    "skills",
+    "hooks",
+    "rules",
+    "tdd",
+    "code-review",
+    "security",
+    "workflow",
+    "automation",
+    "best-practices"
+  ],
+  "mcpServers": {},
+  "skills": ["./skills/"],
+  "commands": ["./commands/"]
+}
