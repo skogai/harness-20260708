@@ -1,0 +1,15 @@
+{
+  "session_id": "15e59fcc-f7c0-47b5-acc1-2f6e67eba438",
+  "prompts": [
+    "hi claude",
+    "we are looking at @.example and the layout they have as a harness overall ",
+    "no since you did only scratch the surface. superclaude is what gets built in the end, a static claude folder is useless as a harness ",
+    "the top level claude folder is for building in the harness and superclaude itself. and yes, the basic structure is what are looking for to base things of ",
+    "/confidence-check ",
+    "add a single \"markdown file example\" in each of the sub-categories such as agents, commands etc as well so we can focus on the tests. also add tests to mise",
+    "create a pr so we can start actually doing tests correct etc",
+    "<github-webhook-activity>\nYou are now subscribed to PR activity for skogai/harness#28. You'll now receive events for CI failures and review comments. For each one, investigate whether it's tractable and what a fix would look like \u2014 then either make the fix if you're confident and it's small, ask me first if it's ambiguous or architecturally significant, or skip it if no action is needed. To start, check the current CI status and if there are any unresolved review comments. If so, address any that require attention. The subscription is not finished until the PR is merged or closed \u2014 webhooks don't deliver CI success, new pushes, or merge-conflict transitions. If the `send_later` tool is available, schedule a self check-in roughly an hour out to re-check the PR, and re-arm it silently if nothing changed.\n</github-webhook-activity>",
+    "<github-webhook-activity>\nThe PR has been merged. You no longer need to watch this PR \u2014 this session has been automatically unsubscribed from its activity. Treat this as the final outcome: do not reopen this PR or open a new PR for the same change unless the user explicitly asks you to.\n\nPR: skogai/harness#28\nOutcome: merged\n</github-webhook-activity>"
+  ],
+  "agent_name": "Cipher"
+}
