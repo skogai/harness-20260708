@@ -5,6 +5,6 @@ type: router
 
 <routes>
 
-- @docs/tools/codegraph.md
+-
 
 </routes>
